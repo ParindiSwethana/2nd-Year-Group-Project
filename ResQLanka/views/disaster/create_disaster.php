@@ -50,7 +50,7 @@ include __DIR__ . "/../layouts/navbar.php";
 <div class="app-layout">
 
 <?php
-include __DIR__ . "/../layouts/admin_sidebar.php";
+include __DIR__ . "/../layouts/district_admin_sidebar.php";
 ?>
 
     <main class="assignments-content">
