@@ -388,11 +388,7 @@ include __DIR__ . "/../layouts/district_admin_sidebar.php";
                 </table>
             </div>
         </div>
-
-         <?php
-            include __DIR__ . "/../layouts/footer.php";
-        ?>
-
-        <script src="../../js/manage_disaster.js"></script>
+         <script src="../../js/manage_disaster.js"></script>
     </main>
 </div>
+<?php include __DIR__ . "/../layouts/footer.php";?>
