@@ -204,10 +204,6 @@ include __DIR__ . "/../layouts/district_admin_sidebar.php";
             </aside>
             
         </div>
-
-        <?php
-            include __DIR__ . "/../layouts/footer.php";
-        ?>
-
     </main>
 </div>
+<?php include __DIR__ . "/../layouts/footer.php";?>
