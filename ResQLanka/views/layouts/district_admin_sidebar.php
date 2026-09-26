@@ -39,6 +39,15 @@
             </span>
             <span>Manage Inventory</span>
         </a>
+        <a
+            href="../notices/manage_notices.php"
+            class="nav-item <?= ($activePage ?? '') === 'notices' ? 'active' : '' ?>"
+        >
+            <span class="nav-icon">
+                <i class="fa-solid fa-bullhorn"></i>
+            </span>
+            <span>Notices &amp; Alerts</span>
+        </a>
     </nav>
 
     <div class="sidebar-volunteer-card">
