@@ -1,8 +1,4 @@
-/* =========================================================
-   ACTIVE DISASTERS PAGE SPECIFIC STYLES
-========================================================= */
 
-/* STATISTICS CARDS */
 .assignment-stats {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
