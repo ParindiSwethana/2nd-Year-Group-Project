@@ -7,7 +7,6 @@ $activePage = "disasters";
 require_once __DIR__ . "/../../config/session.php";
 require_once __DIR__ . "/../../config/database.php";
 
-
 $fullName = $_SESSION["name"] ?? "John";
 $tier = $_SESSION["tier"] ?? "Bronze";
 $points = $_SESSION["points"] ?? 0;
@@ -101,7 +100,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
                 $disasterId
             ]);
         }
-        
         header("Location: " . $_SERVER['PHP_SELF']);
         exit();
     }
@@ -120,9 +118,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
 }
 
 $adminDistrictId = $_SESSION['district_id'] ?? 1;
-$adminDistrict=$_SESSION['district_name'] ?? 'Colombo';
-
-
+$adminDistrict=$_SESSION['district'] ?? 'Colombo';
 
 $ongoingStmt = $conn->prepare("
     SELECT a.*, d.district_name
@@ -143,6 +139,17 @@ $completedStmt = $conn->prepare("
 ");
 $completedStmt->execute([$adminDistrict]);
 $completedDisasters = $completedStmt->fetchAll(PDO::FETCH_ASSOC);
+
+$assignmentStmt = $conn->prepare("
+    SELECT a.*, d.title AS disaster_title, d.disaster_type, dist.district_name
+    FROM volunteer_assignment a
+    JOIN disaster d ON a.disaster_id = d.disaster_id
+    JOIN district dist ON d.district_id = dist.district_id
+    WHERE dist.district_name = ? 
+    ORDER BY a.created_at DESC
+");
+$assignmentStmt->execute([$adminDistrict]);
+$assignment = $assignmentStmt->fetchAll(PDO::FETCH_ASSOC);
 
 
 include __DIR__ . "/../layouts/header.php";
@@ -171,7 +178,7 @@ include __DIR__ . "/../layouts/district_admin_sidebar.php";
             <i class="fa-solid fa-plus"></i> Create Disaster Event
             </a>
             <a 
-                href="assignment_details.php"
+                href="volunteer_assignments.php"
                 class="btn-primary"
             >
             <i class="fa-solid fa-plus"></i> Create Disaster Assignment Request
@@ -183,7 +190,6 @@ include __DIR__ . "/../layouts/district_admin_sidebar.php";
 
       
         <div class="summary-cards">
-            <!-- Active Disasters -->
             <div class="summary-card active-card">
                 <div class="card-icon blue-icon"><i class="fa-solid fa-bell"></i></div>
                 <div class="card-data">
@@ -195,7 +201,6 @@ include __DIR__ . "/../layouts/district_admin_sidebar.php";
                 </div>
             </div>
 
-            <!-- Completed Disasters -->
             <div class="summary-card completed-card">
                 <div class="card-icon green-icon"><i class="fa-solid fa-circle-check"></i></div>
                 <div class="card-data">
@@ -210,7 +215,7 @@ include __DIR__ . "/../layouts/district_admin_sidebar.php";
             <div class="summary-card assignment-card">
                 <div class="card-icon orange-icon"><i class="fa-solid fa-clipboard-list"></i></i></div>
                 <div class="card-data">
-                    <h2><?= count($completedDisasters) ?></h2>
+                    <h2><?= count($assignment) ?></h2>
                     <div class="card-text">
                         <strong>Volunteer Assignments</strong>
                         <a href="../profile/view_profile.php"> View Assignments <i class="fa-solid fa-arrow-right"></i> </a>
@@ -230,7 +235,6 @@ include __DIR__ . "/../layouts/district_admin_sidebar.php";
             </div>
         </div>
 
-        <!-- ONGOING DISASTERS TABLE -->
         <div class="table-section" id="ongoing-section">
             <h3 class="table-title">Ongoing Disasters (<?= count($ongoingDisasters) ?>)</h3>
             <div class="table-responsive">
@@ -313,7 +317,6 @@ include __DIR__ . "/../layouts/district_admin_sidebar.php";
             </div>
         </div>
 
-        <!-- COMPLETED DISASTERS TABLE -->
         <div class="table-section" id="completed-section">
             <h3 class="table-title">Completed / Finished Disasters (<?= count($completedDisasters) ?>)</h3>
             <div class="table-responsive">
