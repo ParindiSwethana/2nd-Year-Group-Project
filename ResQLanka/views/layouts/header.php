@@ -32,6 +32,8 @@ $pageTitle = $pageTitle ?? "ResQ Lanka";
         rel="stylesheet"
     >
 
+    <link rel="stylesheet" href="../../css/header_sidebar_navbar.css">
+
     <?php if (isset($pageCSS)): ?>
 
         <link

@@ -16,7 +16,7 @@
         </a>
 
         <a
-            href="../disaster/disaster_details.php"
+            href="../disaster/active_disasters.php"
             class="nav-item <?= ($activePage ?? '') === 'disasters' ? 'active' : '' ?>"
         >
 
