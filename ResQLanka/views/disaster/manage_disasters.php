@@ -6,6 +6,7 @@ $pageCSS = "../../css/manage_disasters.css";
 $activePage = "disasters";
 
 require_once __DIR__ . "/../../config/session.php";
+requireRole("district_admin");
 
 $fullName = $_SESSION["name"] ?? "John";
 $tier = $_SESSION["tier"] ?? "Bronze";
