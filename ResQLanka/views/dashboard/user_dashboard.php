@@ -5,6 +5,7 @@ $pageCSS = "../../css/user_dashboard.css";
 $activePage = "dashboard";
 
 require_once __DIR__ . "/../../config/session.php";
+requireRole("registered_user");
 
 $fullName = $_SESSION["name"] ?? "John";
 $tier = $_SESSION["tier"] ?? "Bronze";
