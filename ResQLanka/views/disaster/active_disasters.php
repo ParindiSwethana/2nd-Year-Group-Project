@@ -352,9 +352,7 @@ include __DIR__ . "/../layouts/sidebar.php";
 
             </aside>
         </div>
-        <?php
-            include __DIR__ . "/../layouts/footer.php";
-        ?>
 
     </main>
 </div>
+<?php include __DIR__ . "/../layouts/footer.php";?>
