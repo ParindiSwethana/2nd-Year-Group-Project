@@ -15,18 +15,16 @@ class User
 
     public function login($identifier)
     {
-        $query = "
-            SELECT *
-            FROM {$this->table}
-            WHERE username = :identifier
-               OR email = :identifier
-            LIMIT 1
-        ";
+        $query = "SELECT * FROM users
+          WHERE username = :username
+          OR email = :email
+          LIMIT 1";
 
         $stmt = $this->conn->prepare($query);
-
+        
         $stmt->execute([
-            "identifier" => $identifier
+            "username" => $identifier,
+            "email" => $identifier
         ]);
 
         return $stmt->fetch(PDO::FETCH_ASSOC);
