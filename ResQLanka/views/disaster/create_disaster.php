@@ -24,17 +24,7 @@ $db = new Database();
 $conn = $db->connect();
 
 $adminDistrictId = $_SESSION['district_id'] ?? 1;
-
-$districtStmt = $conn->prepare("
-    SELECT district_name
-    FROM district
-    WHERE district_id = ?
-");
-
-$districtStmt->execute([$adminDistrictId]);
-$adminDistrict = $districtStmt->fetchColumn() ?? 'Colombo';
-
-
+$adminDistrict = $_SESSION['district'] ?? 'Colombo';
 include __DIR__ . "/../layouts/header.php";
 include __DIR__ . "/../layouts/navbar.php";
 
@@ -126,12 +116,9 @@ include __DIR__ . "/../layouts/district_admin_sidebar.php";
                                 <option value="Medium">Medium</option>
                                 <option value="Low">Low</option>
                             </select>
-                        </div>
-
-                        
+                        </div>   
                     </div>
-
-                   
+                    
                     <div class="form-group mt-15 full-width">
                         <label><span class="label-num">6.</span> Short Description / Assignment Summary</label>
                         <textarea name="description" placeholder="Provide a brief summary of the assignment, tasks and expected outcomes..." rows="3"></textarea>
