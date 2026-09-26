@@ -70,8 +70,6 @@
 .stat-box-volunteers .stat-icon { color: #3b82f6; background: #dbeafe; }
 .stat-info-volunteers span { color: #1d55df; }
 
-
-/* FILTER BAR */
 .filter-bar {
     min-height: 36px;
     margin-top: 9px;
@@ -268,8 +266,6 @@
 
 .disaster-meta-footer i { color: #111; }
 
-
-/* RIGHT PANEL */
 .right-panel {
     display: flex;
     flex-direction: column;
@@ -400,8 +396,6 @@
     margin: 0;
 }
 
-
-/*FOOTER*/
 .dashboard-footer {
     margin-top:18px;
     min-height:58px;
@@ -428,7 +422,6 @@
     opacity:.9;
 }
 
-/* PAGE SPECIFIC RESPONSIVE BREAKPOINTS */
 @media (max-width: 1250px) {
     .assignment-layout { grid-template-columns: 1fr; }
     .right-panel { display: grid; grid-template-columns: 1fr 1fr; }
