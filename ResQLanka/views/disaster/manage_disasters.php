@@ -25,12 +25,6 @@ function escape($value)
 include __DIR__ . "/../layouts/header.php";
 include __DIR__ . "/../layouts/navbar.php";
 
-/*
-|--------------------------------------------------------------------------
-| Manage Disasters Data
-|--------------------------------------------------------------------------
-*/
-
 $ongoingDisasters = [
     [
         "title" => "Flooding in Kelaniya",
@@ -113,13 +107,8 @@ $completedDisasters = [
 include __DIR__ . "/../layouts/district_admin_sidebar.php";
 ?>
 
-
-    <!-- =====================================================
-         PAGE CONTENT
-    ====================================================== -->
     <main class="assignments-content">
 
-        <!-- PAGE HEADING & ACTION BUTTON -->
         <div class="page-header-actions">
             <div class="page-heading">
                 <h2>Manage Disasters</h2>
@@ -130,9 +119,7 @@ include __DIR__ . "/../layouts/district_admin_sidebar.php";
             </button>
         </div>
 
-        <!-- SUMMARY CARDS -->
         <div class="summary-cards">
-            <!-- Active Disasters -->
             <div class="summary-card active-card">
                 <div class="card-icon blue-icon"><i class="fa-solid fa-bell"></i></div>
                 <div class="card-data">
@@ -144,7 +131,6 @@ include __DIR__ . "/../layouts/district_admin_sidebar.php";
                 </div>
             </div>
 
-            <!-- Completed Disasters -->
             <div class="summary-card completed-card">
                 <div class="card-icon green-icon"><i class="fa-solid fa-circle-check"></i></div>
                 <div class="card-data">
@@ -157,7 +143,6 @@ include __DIR__ . "/../layouts/district_admin_sidebar.php";
             </div>
         </div>
 
-        <!-- TABS BAR -->
         <div class="tabs-container">
             <div class="tabs">
                 <a href="#" class="tab active">Ongoing</a>
@@ -169,7 +154,6 @@ include __DIR__ . "/../layouts/district_admin_sidebar.php";
             </div>
         </div>
 
-        <!-- ONGOING DISASTERS TABLE -->
         <div class="table-section">
             <h3 class="table-title">Ongoing Disasters (<?= count($ongoingDisasters) ?>)</h3>
             <div class="table-responsive">
@@ -237,7 +221,6 @@ include __DIR__ . "/../layouts/district_admin_sidebar.php";
             </div>
         </div>
 
-        <!-- COMPLETED DISASTERS TABLE -->
         <div class="table-section">
             <h3 class="table-title">Completed / Finished Disasters (<?= count($completedDisasters) ?>)</h3>
             <div class="table-responsive">
