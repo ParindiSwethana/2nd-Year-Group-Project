@@ -39,9 +39,6 @@ include __DIR__ . "/../layouts/sidebar.php";
 
 <main class="dashboard-content">
 
-    <!-- =========================
-         WELCOME SECTION
-    ========================== -->
 
     <section class="welcome-card">
 
@@ -274,8 +271,6 @@ include __DIR__ . "/../layouts/sidebar.php";
 
             </div>
 
-
-            <!-- Assignment 1 -->
 
             <article class="assignment-item blue-assignment">
 
