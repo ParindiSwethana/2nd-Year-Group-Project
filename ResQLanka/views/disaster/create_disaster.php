@@ -121,7 +121,7 @@ include __DIR__ . "/../layouts/district_admin_sidebar.php";
                     
                     <div class="form-group mt-15 full-width">
                         <label><span class="label-num">6.</span> Short Description / Disaster Summary</label>
-                        <textarea name="description" placeholder="Provide a brief summary of the assignment, tasks and expected outcomes..." rows="3"></textarea>
+                        <textarea name="description" placeholder="Provide a brief summary of the disaster" rows="3"></textarea>
                         <div class="char-count">0/500</div>
                     </div>
 
