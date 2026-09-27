@@ -177,6 +177,6 @@ require_once("../../config/session.php");
             </div>
         </section>
     </main>
-
-    <?php include __DIR__ . "/../layouts/footer.php"; ?>
 </div>
+
+<?php require_once __DIR__ . "/../layouts/footer.php"; ?>
