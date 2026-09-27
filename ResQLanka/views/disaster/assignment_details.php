@@ -20,6 +20,7 @@ $successMessage = "";
 $errorMessage = "";
 
 
+
 if (
     $_SERVER["REQUEST_METHOD"] === "POST" &&
     isset($_POST["delete_assignment"])
@@ -68,6 +69,7 @@ if (
 
     }
 }
+
 
 
 $assignments = [];
@@ -140,7 +142,9 @@ try {
         content="width=device-width, initial-scale=1.0"
     >
 
-    <title>Volunteer Assignments | ResQ Lanka</title>
+    <title>
+        Volunteer Assignments | ResQ Lanka
+    </title>
 
 
     <!-- FONT AWESOME -->
@@ -172,29 +176,26 @@ try {
 <body>
 
 
-<div class="page-background"></div>
+<?php include "../layouts/header.php"; ?>
 
 
-<?php
 
+<?php include "../layouts/navbar.php"; ?>
 
-include "../layouts/header.php";
-
-include "../layouts/navbar.php";
-
-include "../layouts/district_admin_sidebar.php";
-
-?>
 
 
 <div class="app-layout">
 
 
+    
+    <?php include "../layouts/district_admin_sidebar.php"; ?>
+
+  
+
     <main class="main-content">
 
 
-        <!-- PAGE HEADER -->
-
+        
         <div class="page-heading">
 
             <div>
@@ -218,6 +219,7 @@ include "../layouts/district_admin_sidebar.php";
                     Volunteer Assignments
                 </h2>
 
+
                 <p>
                     View and manage all volunteer assignments
                     created for disaster response.
@@ -226,7 +228,7 @@ include "../layouts/district_admin_sidebar.php";
             </div>
 
 
-            <!-- CREATE BUTTON -->
+            <!-- CREATE ASSIGNMENT BUTTON -->
 
             <a
                 href="volunteer_assignments.php"
@@ -240,6 +242,8 @@ include "../layouts/district_admin_sidebar.php";
             </a>
 
         </div>
+
+
 
         
         <?php if (!empty($successMessage)): ?>
@@ -257,6 +261,8 @@ include "../layouts/district_admin_sidebar.php";
         <?php endif; ?>
 
 
+
+        
         <?php if (!empty($errorMessage)): ?>
 
             <div class="message error-message">
@@ -270,6 +276,8 @@ include "../layouts/district_admin_sidebar.php";
             </div>
 
         <?php endif; ?>
+
+
 
         
         <section class="assignment-card">
@@ -306,9 +314,7 @@ include "../layouts/district_admin_sidebar.php";
 
             </div>
 
-
-
-            <!-- TABLE -->
+            
 
             <div class="table-wrapper">
 
@@ -359,9 +365,7 @@ include "../layouts/district_admin_sidebar.php";
 
                             <tr>
 
-
-                                <!-- ASSIGNMENT -->
-
+                                
                                 <td>
 
                                     <div class="assignment-title">
@@ -398,9 +402,7 @@ include "../layouts/district_admin_sidebar.php";
                                 </td>
 
 
-
-                                <!-- LOCATION -->
-
+                                
                                 <td>
 
                                     <div class="location-cell">
@@ -420,9 +422,7 @@ include "../layouts/district_admin_sidebar.php";
                                 </td>
 
 
-
-                                <!-- VOLUNTEERS -->
-
+                                
                                 <td>
 
                                     <div class="volunteer-number">
@@ -442,9 +442,7 @@ include "../layouts/district_admin_sidebar.php";
                                 </td>
 
 
-
-                                <!-- STATUS -->
-
+                                
                                 <td>
 
                                     <?php
@@ -495,9 +493,7 @@ include "../layouts/district_admin_sidebar.php";
                                 </td>
 
 
-
-                                <!-- PRIORITY -->
-
+                               
                                 <td>
 
                                     <?php
@@ -552,9 +548,7 @@ include "../layouts/district_admin_sidebar.php";
 
                                 </td>
 
-
-
-                                <!-- ACTIONS -->
+                                
 
                                 <td>
 
@@ -639,8 +633,7 @@ include "../layouts/district_admin_sidebar.php";
                     <?php else: ?>
 
 
-                        <!-- EMPTY TABLE -->
-
+                       
                         <tr>
 
                             <td
@@ -696,16 +689,23 @@ include "../layouts/district_admin_sidebar.php";
 </div>
 
 
+
+
+
 <div
     id="detailsModal"
     class="modal-overlay"
     onclick="closeDetails(event)"
 >
 
+
     <div
         class="details-modal"
         onclick="event.stopPropagation()"
     >
+
+
+        <!-- MODAL HEADER -->
 
         <div class="modal-header">
 
@@ -734,6 +734,9 @@ include "../layouts/district_admin_sidebar.php";
 
         </div>
 
+
+
+        <!-- MODAL BODY -->
 
         <div class="modal-body">
 
@@ -906,6 +909,8 @@ include "../layouts/district_admin_sidebar.php";
 </div>
 
 
+
+
 <script>
 
 function showDetails(assignment)
@@ -969,6 +974,7 @@ function showDetails(assignment)
 }
 
 
+
 function closeDetails(event)
 {
 
@@ -983,6 +989,7 @@ function closeDetails(event)
     }
 
 }
+
 
 
 document.addEventListener(
@@ -1003,11 +1010,10 @@ document.addEventListener(
 </script>
 
 
-<?php
 
-include "../layouts/footer.php";
 
-?>
+
+<?php include "../layouts/footer.php"; ?>
 
 
 </body>
