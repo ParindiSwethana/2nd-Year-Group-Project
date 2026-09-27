@@ -433,30 +433,6 @@ select {
     font-size:14px;
 }
 
-footer {
-    margin-top:40px;
-    background:#0f3dba;
-    color:#fff;
-    border-radius:20px;
-    padding:20px 30px;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    gap:30px;
-    box-shadow:0 10px 30px rgba(15,61,186,.25);
-}
-
-footer div {
-    display:flex;
-    align-items:center;
-    gap:10px;
-    font-size:14px;
-}
-
-footer i {
-    flex-shrink:0;
-}
-
 @media(max-width:1200px) {
     main {
         grid-template-columns:1fr;
@@ -501,15 +477,5 @@ footer i {
     .info-box {
         flex-direction:column;
         text-align:center;
-    }
-
-    footer {
-        flex-direction:column;
-        text-align:center;
-        gap:15px;
-    }
-
-    footer div {
-        justify-content:center;
     }
 }

@@ -177,18 +177,6 @@ require_once("../../config/session.php");
             </div>
         </section>
     </main>
-
-    <footer>
-        <div>
-            <i class="fa-solid fa-shield"></i>
-            Building safer communities through preparedness,
-            response and resilience.
-        </div>
-        <div>
-            © 2026 ResQ Lanka. All rights reserved.
-        </div>
-    </footer>
-
 </div>
-</body>
-</html>
+
+<?php require_once __DIR__ . "/../layouts/footer.php"; ?>

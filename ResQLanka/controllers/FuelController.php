@@ -9,22 +9,40 @@ function fuelRedirect(string $path, string $message = ""): void
     exit();
 }
 
+function anonymousFuelVoterToken(): string
+{
+    if (!empty($_COOKIE["fuel_voter_token"]) && preg_match('/^[a-f0-9]{64}$/', $_COOKIE["fuel_voter_token"])) {
+        return $_COOKIE["fuel_voter_token"];
+    }
+
+    $token = bin2hex(random_bytes(32));
+    setcookie("fuel_voter_token", $token, [
+        "expires" => time() + 31536000,
+        "path" => "/",
+        "httponly" => true,
+        "samesite" => "Lax"
+    ]);
+    return $token;
+}
+
 $action = $_GET["action"] ?? $_POST["action"] ?? "";
 $model = new FuelStation();
 
 if ($action === "vote") {
-    requireRole("registered_user");
     if ($_SERVER["REQUEST_METHOD"] !== "POST") {
         fuelRedirect("../views/fuel/search.php");
     }
 
     $stationId = (int) ($_POST["station_id"] ?? 0);
     $vote = $_POST["vote"] ?? "";
+
     if ($stationId < 1 || !in_array($vote, ["available", "out_of_stock"], true)) {
         fuelRedirect("../views/fuel/search.php", "Invalid vote.");
     }
 
-    $model->vote($stationId, (int) $_SESSION["user_id"], $vote);
+    $userId = isset($_SESSION["user_id"]) ? (int) $_SESSION["user_id"] : null;
+    $voterToken = $userId === null ? anonymousFuelVoterToken() : "";
+    $model->vote($stationId, $userId, $voterToken, $vote);
     fuelRedirect("../views/fuel/search.php", "Thank you. Fuel availability has been updated.");
 }
 

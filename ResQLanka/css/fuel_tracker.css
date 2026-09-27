@@ -202,6 +202,26 @@
     background:#cfe0ff;
 }
 
+.station-vote-counts {
+    display:flex;
+    flex-direction:column;
+    gap:1px;
+}
+
+.station-vote-counts span {
+    font-size:7px;
+    font-weight:600;
+    white-space:nowrap;
+}
+
+.available-count {
+    color:#00a328;
+}
+
+.out-count {
+    color:#f20e0e;
+}
+
 .station-votes form {
     display:flex;
     gap:7px;
@@ -358,32 +378,6 @@
     color:#0649f5;
     font-size:11px;
     font-weight:600;
-}
-
-.dashboard-footer {
-    margin-top:18px;
-    min-height:58px;
-    padding:13px 20px;
-    border-radius:17px;
-    background:linear-gradient(135deg,#174cc5,#103b9d);
-    color:#fff;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    gap:20px;
-    box-shadow:0 10px 25px rgba(15,61,186,.18);
-}
-
-.dashboard-footer div {
-    display:flex;
-    align-items:center;
-    gap:9px;
-    font-size:12px;
-}
-
-.dashboard-footer p {
-    font-size:12px;
-    opacity:.9;
 }
 
 @media (max-width:1250px) {

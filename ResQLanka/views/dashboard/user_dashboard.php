@@ -192,6 +192,8 @@ include __DIR__ . "/../layouts/sidebar.php";
         </article>
 
     </section>
+
+    <?php include __DIR__ . "/../notices/notices_panel.php"; ?>
     
     <div class="dashboard-grid">
 
@@ -456,10 +458,7 @@ include __DIR__ . "/../layouts/sidebar.php";
         </div>
     </section>
 
-
-<?php
-include __DIR__ . "/../layouts/footer.php";
-?>
-
 </main>
 </div>
+
+<?php include __DIR__ . "/../layouts/footer.php"; ?>
