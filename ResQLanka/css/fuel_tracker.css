@@ -60,7 +60,7 @@
     flex-direction:column;
     gap:6px;
     color:#111;
-    font-size:11px;
+    font-size:12px;
     font-weight:600;
 }
 
@@ -73,7 +73,7 @@
     padding:0 11px;
     color:#4a5872;
     outline:none;
-    font-size:11px;
+    font-size:12px;
 }
 
 .fuel-search-button {
@@ -82,7 +82,7 @@
     border-radius:8px;
     background:#0649f5;
     color:#fff;
-    font-size:11px;
+    font-size:12px;
     font-weight:700;
     cursor:pointer;
 }
@@ -94,7 +94,7 @@
     border:1px solid #b6c7ff;
     background:#edf0ff;
     color:#0649f5;
-    font-size:11px;
+    font-size:12x;
     font-weight:600;
 }
 
@@ -145,13 +145,13 @@
 
 .station-details h3 {
     color:#111;
-    font-size:11px;
+    font-size:12px;
     font-weight:700;
 }
 
 .station-details p {
     color:#555;
-    font-size:8px;
+    font-size:10px;
     margin-top:5px;
 }
 
@@ -170,13 +170,13 @@
 .station-status-block > span,
 .station-updated > span {
     color:#111;
-    font-size:7px;
+    font-size:9px;
     font-weight:700;
 }
 
 .station-updated strong {
     color:#555;
-    font-size:8px;
+    font-size:10px;
     font-weight:500;
 }
 
@@ -184,7 +184,7 @@
     width:max-content;
     padding:3px 6px;
     border-radius:3px;
-    font-size:8px;
+    font-size:11px;
 }
 
 .status-available {
@@ -213,7 +213,7 @@
     height:42px;
     border-radius:5px;
     background:#fff;
-    font-size:7px;
+    font-size:10px;
     line-height:1.15;
     font-weight:700;
     cursor:pointer;
@@ -314,7 +314,7 @@
 
 .guide-row small {
     color:#666;
-    font-size:8px;
+    font-size: 11px;
 }
 
 .fuel-side-spacer {
@@ -334,7 +334,7 @@
 
 .side-fuel-box p {
     color:#333;
-    font-size:9px;
+    font-size: 12px;
     line-height:1.45;
 }
 
@@ -356,7 +356,7 @@
     border:1px solid #0649f5;
     border-radius:4px;
     color:#0649f5;
-    font-size:8px;
+    font-size:11px;
     font-weight:600;
 }
 
