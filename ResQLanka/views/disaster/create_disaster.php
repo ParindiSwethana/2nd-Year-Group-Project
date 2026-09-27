@@ -23,7 +23,6 @@ function escape($value)
 $db = new Database();
 $conn = $db->connect();
 
-$adminDistrictId = $_SESSION['district_id'] ?? 1;
 $adminDistrict = $_SESSION['district'] ?? 'Colombo';
 include __DIR__ . "/../layouts/header.php";
 include __DIR__ . "/../layouts/navbar.php";
@@ -96,14 +95,8 @@ include __DIR__ . "/../layouts/district_admin_sidebar.php";
                             <label><span class="label-num">4.</span>District</label>
                             <input 
                                 type="text" 
+                                name="district" 
                                 value="<?= escape($adminDistrict) ?>" 
-                                readonly
-                            >
-
-                            <input 
-                                type="hidden" 
-                                name="district_id" 
-                                value="<?= escape($adminDistrictId) ?>"
                             >
                         </div>
 
@@ -133,7 +126,7 @@ include __DIR__ . "/../layouts/district_admin_sidebar.php";
                                 <i class="fa-solid fa-bookmark"></i> Save Draft
                             </button>
                             <button type="submit" name="submit_disaster" class="btn-submit">
-                                <i class="fa-solid fa-paper-plane"></i> Create Assignment Request
+                                <i class="fa-solid fa-paper-plane"></i> Create Disaster Event
                             </button>
                         </div>
                     </div>

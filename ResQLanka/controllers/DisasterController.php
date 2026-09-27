@@ -17,12 +17,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_disaster'])) {
     $disaster_type = $_POST['disaster_type'] ?? '';
     $description   = trim($_POST['description'] ?? '');
     $location      = trim($_POST['location'] ?? '');
-    $district_id   = $_SESSION['district_id'] ?? '1'; 
+    $district   = $_SESSION['district'] ?? 'Colombo'; 
     $priority      = $_POST['priority'] ?? '';
     
-    if (!empty($title) && !empty($district_id)) {
+    if (!empty($title) && !empty($district)) {
         try {
-            $disasterModel->create($title, $disaster_type, $description, $location, $district_id, $priority);
+            $disasterModel->create($title, $disaster_type, $description, $location, $district, $priority);
 
             $_SESSION['success_message'] = "Disaster reported successfully.";
             header("Location: ../views/disaster/manage_disasters.php?status=success");

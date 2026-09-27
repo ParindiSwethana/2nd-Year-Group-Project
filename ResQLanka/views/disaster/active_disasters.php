@@ -86,11 +86,10 @@ $selectedSeverity = $_GET['severity'] ?? 'All';
 
 if ($selectedDistrict !== 'All' && $selectedSeverity !== 'All' ) {
     $disasterStmt = $conn->prepare("
-        SELECT a.*, d.title AS disaster_title, d.disaster_type, dist.district_name
+        SELECT a.*, d.title AS disaster_title, d.disaster_type, d.district
         FROM volunteer_assignment a
         JOIN disaster d ON a.disaster_id = d.disaster_id
-        JOIN district dist ON d.district_id = dist.district_id
-        WHERE dist.district_name = ? AND a.severity = ? AND a.status = 'Ongoing'
+        WHERE d.district = ? AND a.severity = ? AND a.status = 'Ongoing'
         ORDER BY a.created_at DESC
     ");
     $disasterStmt->execute([$selectedDistrict,$selectedSeverity]);
@@ -98,11 +97,10 @@ if ($selectedDistrict !== 'All' && $selectedSeverity !== 'All' ) {
 else if ($selectedDistrict !== 'All' && $selectedSeverity === 'All'){
    
     $disasterStmt = $conn->prepare("
-        SELECT a.*, d.title AS disaster_title, d.disaster_type, dist.district_name
+        SELECT a.*, d.title AS disaster_title, d.disaster_type, d.district
         FROM volunteer_assignment a
         JOIN disaster d ON a.disaster_id = d.disaster_id
-        JOIN district dist ON d.district_id = dist.district_id
-        WHERE dist.district_name = ? AND a.status = 'Ongoing'
+        WHERE d.district = ? AND a.status = 'Ongoing'
         ORDER BY a.created_at DESC
     ");
     $disasterStmt->execute([$selectedDistrict]);
@@ -110,10 +108,9 @@ else if ($selectedDistrict !== 'All' && $selectedSeverity === 'All'){
 else if ($selectedDistrict === 'All' && $selectedSeverity !== 'All'){
    
     $disasterStmt = $conn->prepare("
-        SELECT a.*, d.title AS disaster_title, d.disaster_type, dist.district_name
+        SELECT a.*, d.title AS disaster_title, d.disaster_type, d.district
         FROM volunteer_assignment a
         JOIN disaster d ON a.disaster_id = d.disaster_id
-        JOIN district dist ON d.district_id = dist.district_id
         WHERE a.severity = ? AND a.status = 'Ongoing'
         ORDER BY a.created_at DESC
     ");
@@ -122,10 +119,9 @@ else if ($selectedDistrict === 'All' && $selectedSeverity !== 'All'){
 else {
    
     $disasterStmt = $conn->prepare("
-        SELECT a.*, d.title AS disaster_title, d.disaster_type, dist.district_name
+       SELECT a.*, d.title AS disaster_title, d.disaster_type, d.district
         FROM volunteer_assignment a
         JOIN disaster d ON a.disaster_id = d.disaster_id
-        JOIN district dist ON d.district_id = dist.district_id
         WHERE a.status = 'Ongoing'
         ORDER BY a.created_at DESC
     ");
@@ -290,7 +286,7 @@ include __DIR__ . "/../layouts/sidebar.php";
                                     <?= escape($disaster['severity']) ?>
                                 </span>
                                 <a 
-                                    href="disaster_details.php?id=<?= escape($disaster['assignment_id'])?>"
+                                    href="apply_assignment.php?id=<?= escape($disaster['assignment_id'])?>"
                                     class="view-details btn-<?= escape($severity['severity_class']) ?>"
                                 >
                                     View Details <i class="fa-solid fa-caret-down"></i>

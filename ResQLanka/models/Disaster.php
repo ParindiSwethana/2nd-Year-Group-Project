@@ -9,13 +9,13 @@ class Disaster {
         $this->conn = $dbConnection;
     }
 
-    public function create($title, $type, $description, $location, $district_id, $priority) {
+    public function create($title, $type, $description, $location, $district, $priority) {
         $stmt = $this->conn->prepare("
-            INSERT INTO disaster (title, disaster_type, description, location, district_id, priority) 
+            INSERT INTO disaster (title, disaster_type, description, location, district, priority) 
             VALUES (?, ?, ?, ?, ?, ?)
         ");
         
-        return $stmt->execute([$title, $type, $description, $location, $district_id, $priority]);
+        return $stmt->execute([$title, $type, $description, $location, $district, $priority]);
     }
 }
 ?>

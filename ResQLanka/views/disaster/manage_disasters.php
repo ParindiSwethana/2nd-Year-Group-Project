@@ -117,35 +117,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
     }
 }
 
-$adminDistrictId = $_SESSION['district_id'] ?? 1;
 $adminDistrict=$_SESSION['district'] ?? 'Colombo';
 
 $ongoingStmt = $conn->prepare("
-    SELECT a.*, d.district_name
-    FROM disaster a
-    JOIN district d ON a.district_id = d.district_id
-    WHERE a.status = 'Ongoing' AND d.district_name = ? 
-    ORDER BY a.created_at DESC
+    SELECT *
+    FROM disaster 
+    WHERE status = 'Ongoing' AND district = ? 
+    ORDER BY created_at DESC
 ");
 $ongoingStmt->execute([$adminDistrict]);
 $ongoingDisasters = $ongoingStmt->fetchAll(PDO::FETCH_ASSOC);
 
 $completedStmt = $conn->prepare("
-    SELECT a.*, d.district_name
-    FROM disaster a
-    JOIN district d ON a.district_id = d.district_id
-    WHERE a.status = 'Completed' AND d.district_name = ? 
-    ORDER BY a.created_at DESC
+    SELECT *
+    FROM disaster 
+    WHERE status = 'Completed' AND district = ? 
+    ORDER BY created_at DESC
 ");
 $completedStmt->execute([$adminDistrict]);
 $completedDisasters = $completedStmt->fetchAll(PDO::FETCH_ASSOC);
 
 $assignmentStmt = $conn->prepare("
-    SELECT a.*, d.title AS disaster_title, d.disaster_type, dist.district_name
+    SELECT a.*, d.title AS disaster_title, d.disaster_type, d.district
     FROM volunteer_assignment a
     JOIN disaster d ON a.disaster_id = d.disaster_id
-    JOIN district dist ON d.district_id = dist.district_id
-    WHERE dist.district_name = ? 
+    WHERE d.district = ? 
     ORDER BY a.created_at DESC
 ");
 $assignmentStmt->execute([$adminDistrict]);
