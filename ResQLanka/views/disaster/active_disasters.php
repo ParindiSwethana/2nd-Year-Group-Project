@@ -286,7 +286,7 @@ include __DIR__ . "/../layouts/sidebar.php";
                                     <?= escape($disaster['severity']) ?>
                                 </span>
                                 <a 
-                                    href="disaster_details.php?id=<?= escape($disaster['assignment_id'])?>"
+                                    href="apply_assignment.php?id=<?= escape($disaster['assignment_id'])?>"
                                     class="view-details btn-<?= escape($severity['severity_class']) ?>"
                                 >
                                     View Details <i class="fa-solid fa-caret-down"></i>
