@@ -81,7 +81,7 @@ include __DIR__ . "/../layouts/navbar.php";
                         <?php
                         $status = $station["current_status"];
                         $statusLabel = $status === "available" ? "Available" : ($status === "out_of_stock" ? "Out of Stock" : "Unknown");
-                        $updatedText = $station["current_period_updated_at"] ? date("g:i A", strtotime($station["current_period_updated_at"])) : "NOT UPDATED";
+                        $updatedText = $station["status_updated_at"] ? date("g:i A", strtotime($station["status_updated_at"])) : "NOT UPDATED";
                         ?>
                         <article class="station-card">
                             <div class="station-logo"><i class="fa-solid fa-gas-pump"></i></div>
@@ -95,8 +95,8 @@ include __DIR__ . "/../layouts/navbar.php";
                                 <span>FUEL STATUS</span>
                                 <strong class="fuel-status status-<?= fuelEscape($status) ?>"><?= fuelEscape($statusLabel) ?></strong>
                                 <div class="station-vote-counts">
-                                    <span class="available-count"><?= (int) $station["available_votes"] ?> Available</span>
-                                    <span class="out-count"><?= (int) $station["out_votes"] ?> Not Available</span>
+                                    <span class="available-count"><?= (int) ($station["available_votes"] ?? 0) ?> Available</span>
+                                    <span class="out-count"><?= (int) ($station["out_votes"] ?? 0) ?> Not Available</span>
                                 </div>
                             </div>
 
@@ -106,15 +106,11 @@ include __DIR__ . "/../layouts/navbar.php";
                             </div>
 
                             <div class="station-votes">
-                                <?php if ($role === "registered_user"): ?>
-                                    <form method="POST" action="../../controllers/FuelController.php?action=vote">
-                                        <input type="hidden" name="station_id" value="<?= (int) $station["station_id"] ?>">
-                                        <button type="submit" name="vote" value="available" class="vote-button vote-available">VOTE ON<br>AVAILABLE</button>
-                                        <button type="submit" name="vote" value="out_of_stock" class="vote-button vote-out">VOTE ON<br>NOT AVAILABLE</button>
-                                    </form>
-                                <?php else: ?>
-                                    <a href="../auth/login.php" class="login-to-vote">Log in to vote</a>
-                                <?php endif; ?>
+                                <form method="POST" action="../../controllers/FuelController.php?action=vote">
+                                    <input type="hidden" name="station_id" value="<?= (int) $station["station_id"] ?>">
+                                    <button type="submit" name="vote" value="available" class="vote-button vote-available">VOTE ON<br>AVAILABLE</button>
+                                    <button type="submit" name="vote" value="out_of_stock" class="vote-button vote-out">VOTE ON<br>NOT AVAILABLE</button>
+                                </form>
                             </div>
                         </article>
                     <?php endforeach; ?>
