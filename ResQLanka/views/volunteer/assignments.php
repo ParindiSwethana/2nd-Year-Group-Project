@@ -4,11 +4,9 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-
 $fullName = $_SESSION["name"] ?? "Volunteer";
 $tier = $_SESSION["tier"] ?? "Bronze";
 $points = $_SESSION["points"] ?? 0;
-
 
 function escape($value)
 {
@@ -19,12 +17,10 @@ function escape($value)
     );
 }
 
-
 require_once "../../config/database.php";
 
 $database = new Database();
 $conn = $database->connect();
-
 
 $applications = [];
 $totalApplications = 0;
@@ -33,10 +29,7 @@ $inProgressCount = 0;
 $completedCount = 0;
 $totalHours = 0;
 
-
 try {
-
-    
 
     $sql = "
 
@@ -103,7 +96,6 @@ try {
 
     $applications = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-    
     $totalApplications = count($applications);
 
     foreach ($applications as $application) {
@@ -120,15 +112,12 @@ try {
             )
         );
 
-
-
         if (
             $status === "pending" ||
             $status === "approved"
         ) {
             $upcomingCount++;
         }
-
 
         if (
             $status === "in progress" ||
@@ -137,14 +126,10 @@ try {
             $inProgressCount++;
         }
 
-
-        
         if ($status === "completed") {
             $completedCount++;
         }
 
-
-        
         $duration = $application["duration"] ?? "";
 
         if (
@@ -160,16 +145,8 @@ try {
 
 } catch (PDOException $e) {
 
-    /*
-     * In development you can uncomment this
-     * to see the database error.
-     */
-
-    // die("Database Error: " . $e->getMessage());
-
     $applications = [];
 }
-
 
 $firstName = explode(
     " ",
@@ -190,8 +167,9 @@ $firstName = explode(
         content="width=device-width, initial-scale=1.0"
     >
 
-    <title>Volunteer Assignments | ResQ Lanka</title>
-
+    <title>
+        Volunteer Assignments | ResQ Lanka
+    </title>
 
     <!-- FONT AWESOME -->
 
@@ -200,14 +178,12 @@ $firstName = explode(
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
     >
 
-
     <!-- POPPINS -->
 
     <link
         href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet"
     >
-
 
     <!-- PAGE CSS -->
 
@@ -221,31 +197,32 @@ $firstName = explode(
 
 <body>
 
+
+
 <div class="page-background"></div>
 
 
-<?php
+
+<?php include "../layouts/header.php"; ?>
 
 
-include "../layouts/header.php";
-
-include "../layouts/navbar.php";
-
-include "../layouts/sidebar.php";
-
-?>
+<?php include "../layouts/navbar.php"; ?>
 
 
 
 <div class="app-layout">
 
+
+    
+    <?php include "../layouts/sidebar.php"; ?>
+
+
     
 
-    <main class="assignment-content">
+    <main class="main-content">
 
 
-        <!-- PAGE HEADER -->
-
+        
         <section class="page-heading">
 
             <div>
@@ -267,7 +244,9 @@ include "../layouts/sidebar.php";
 
         </section>
 
-       
+
+        
+
         <section class="stats-grid">
 
 
@@ -352,7 +331,7 @@ include "../layouts/sidebar.php";
             </article>
 
 
-            <!-- TOTAL -->
+            <!-- TOTAL HOURS -->
 
             <article class="stat-card stat-purple">
 
@@ -380,7 +359,7 @@ include "../layouts/sidebar.php";
 
         </section>
 
-        
+       
 
         <section class="filter-bar">
 
@@ -430,8 +409,8 @@ include "../layouts/sidebar.php";
 
         </section>
 
-       
 
+        
         <section class="assignment-list">
 
 
@@ -458,7 +437,7 @@ include "../layouts/sidebar.php";
                     </p>
 
                     <a
-                        href="../disaster/disaster_details.php"
+                        href="../disaster/active_disasters.php"
                         class="browse-button"
                     >
 
@@ -622,8 +601,7 @@ include "../layouts/sidebar.php";
 
                     ?>
 
-
-                    <!-- ASSIGNMENT CARD -->
+                    
 
                     <article
                         class="assignment-card <?= escape($statusClass) ?>"
@@ -819,7 +797,7 @@ include "../layouts/sidebar.php";
 
         </section>
 
-        
+       
 
         <section class="community-strip">
 
@@ -900,15 +878,8 @@ include "../layouts/sidebar.php";
 </div>
 
 
-<?php
 
-/* =========================================
-   FOOTER
-========================================= */
-
-include "../layouts/footer.php";
-
-?>
+<?php include "../layouts/footer.php"; ?>
 
 
 
@@ -935,8 +906,7 @@ filterTabs.forEach(function(tab) {
         });
 
 
-        /* Add active */
-
+       
         tab.classList.add("active");
 
 
