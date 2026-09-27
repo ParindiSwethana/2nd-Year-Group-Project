@@ -1,13 +1,43 @@
+/* =========================================================
+   VOLUNTEER ASSIGNMENTS
+   PAGE CONTENT ONLY
+   ========================================================= */
+
+
+/* =========================================================
+   MAIN CONTENT
+   ========================================================= */
 
 .assignment-content {
+    width: 100%;
     min-width: 0;
+    max-width: none;
+
+    padding: 30px 35px 40px;
+
+    box-sizing: border-box;
 }
 
 
+/*
+   Make sure content cannot overflow its parent
+*/
+
+.assignment-content,
+.assignment-content * {
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   PAGE HEADING
+   ========================================================= */
+
 .page-heading {
     position: relative;
-
     overflow: hidden;
+
+    width: 100%;
 
     border-radius: 25px;
 
@@ -40,8 +70,9 @@
 
     border-radius: 50%;
 
-    background:
-        rgba(39,93,228,.07);
+    background: rgba(39,93,228,.07);
+
+    pointer-events: none;
 }
 
 .section-label {
@@ -59,35 +90,50 @@
 }
 
 .page-heading h2 {
+    margin: 0;
+
     color: #102d72;
 
     font-size: 29px;
 
     font-weight: 700;
+
+    line-height: 1.25;
 }
 
 .page-heading p {
-    margin-top: 6px;
+    margin: 6px 0 0;
 
     color: #6a7894;
 
     font-size: 13px;
+
+    line-height: 1.6;
 }
 
 
+/* =========================================================
+   STATISTICS
+   ========================================================= */
+
 .stats-grid {
+    width: 100%;
+
     margin-top: 22px;
 
     display: grid;
 
     grid-template-columns:
-        repeat(4,minmax(0,1fr));
+        repeat(4, minmax(0, 1fr));
 
     gap: 17px;
 }
 
 .stat-card {
     position: relative;
+
+    width: 100%;
+    min-width: 0;
 
     min-height: 170px;
 
@@ -123,6 +169,8 @@
     background: currentColor;
 
     opacity: .045;
+
+    pointer-events: none;
 }
 
 .stat-card:hover {
@@ -138,11 +186,15 @@
     justify-content: space-between;
 
     align-items: center;
+
+    gap: 10px;
 }
 
 .stat-icon {
     width: 45px;
     height: 45px;
+
+    flex-shrink: 0;
 
     border-radius: 14px;
 
@@ -167,6 +219,8 @@
     background: #f4f7fc;
 
     color: #8390a8;
+
+    white-space: nowrap;
 }
 
 .stat-number {
@@ -182,17 +236,21 @@
 }
 
 .stat-card h3 {
-    margin-top: 7px;
+    margin: 7px 0 0;
 
     color: #7a879f;
 
     font-size: 11px;
 
     font-weight: 500;
+
+    line-height: 1.4;
 }
 
 
-/* STAT COLORS */
+/* =========================================================
+   STAT COLORS
+   ========================================================= */
 
 .stat-blue {
     color: #2563eb;
@@ -200,7 +258,6 @@
 
 .stat-blue .stat-icon {
     color: #2563eb;
-
     background: #ebf2ff;
 }
 
@@ -210,7 +267,6 @@
 
 .stat-green .stat-icon {
     color: #16895a;
-
     background: #e9f8f1;
 }
 
@@ -220,7 +276,6 @@
 
 .stat-orange .stat-icon {
     color: #d47b0e;
-
     background: #fff3e0;
 }
 
@@ -230,12 +285,17 @@
 
 .stat-purple .stat-icon {
     color: #8145cc;
-
     background: #f2eaff;
 }
 
 
+/* =========================================================
+   FILTER BAR
+   ========================================================= */
+
 .filter-bar {
+    width: 100%;
+
     margin-top: 22px;
 
     background: #fff;
@@ -256,6 +316,8 @@
     gap: 5px;
 
     overflow-x: auto;
+
+    scrollbar-width: thin;
 }
 
 .filter-tab {
@@ -296,7 +358,13 @@
 }
 
 
+/* =========================================================
+   ASSIGNMENT LIST
+   ========================================================= */
+
 .assignment-list {
+    width: 100%;
+
     margin-top: 18px;
 
     display: flex;
@@ -307,14 +375,21 @@
 }
 
 
+/* =========================================================
+   ASSIGNMENT CARD
+   ========================================================= */
+
 .assignment-card {
     position: relative;
+
+    width: 100%;
+    min-width: 0;
 
     display: grid;
 
     grid-template-columns:
         58px
-        minmax(0,1fr)
+        minmax(0, 1fr)
         150px;
 
     align-items: center;
@@ -343,11 +418,15 @@
 }
 
 
-/* LEFT ICON */
+/* =========================================================
+   ASSIGNMENT ICON
+   ========================================================= */
 
 .assignment-icon {
     width: 56px;
     height: 56px;
+
+    flex-shrink: 0;
 
     border-radius: 16px;
 
@@ -361,7 +440,9 @@
 }
 
 
-/* STATUS BASE COLORS */
+/* =========================================================
+   STATUS COLORS
+   ========================================================= */
 
 .assignment-card.upcoming {
     border-left: 4px solid #2865e8;
@@ -407,9 +488,12 @@
 }
 
 
-/* MAIN */
+/* =========================================================
+   MAIN ASSIGNMENT INFORMATION
+   ========================================================= */
 
 .assignment-main {
+    width: 100%;
     min-width: 0;
 }
 
@@ -421,10 +505,14 @@
     gap: 8px;
 
     margin-bottom: 6px;
+
+    flex-wrap: wrap;
 }
 
 
-/* STATUS BADGES */
+/* =========================================================
+   STATUS BADGES
+   ========================================================= */
 
 .status-badge {
     display: inline-flex;
@@ -440,6 +528,8 @@
     font-weight: 700;
 
     letter-spacing: .4px;
+
+    white-space: nowrap;
 }
 
 .status-badge.upcoming {
@@ -479,17 +569,25 @@
     font-size: 8px;
 
     font-weight: 600;
+
+    white-space: nowrap;
 }
 
 
-/* TITLE */
+/* =========================================================
+   ASSIGNMENT TITLE
+   ========================================================= */
 
 .assignment-main h3 {
+    margin: 0;
+
     color: #173875;
 
     font-size: 14px;
 
     font-weight: 650;
+
+    line-height: 1.4;
 
     white-space: nowrap;
 
@@ -499,7 +597,9 @@
 }
 
 
-/* META */
+/* =========================================================
+   META INFORMATION
+   ========================================================= */
 
 .assignment-meta {
     display: flex;
@@ -521,6 +621,8 @@
     color: #738199;
 
     font-size: 9px;
+
+    line-height: 1.4;
 }
 
 .assignment-meta i {
@@ -528,7 +630,9 @@
 }
 
 
-/* EXTRA */
+/* =========================================================
+   EXTRA INFORMATION
+   ========================================================= */
 
 .assignment-extra {
     display: flex;
@@ -548,6 +652,8 @@
     color: #8a95a9;
 
     font-size: 8px;
+
+    line-height: 1.4;
 }
 
 .assignment-extra strong {
@@ -557,14 +663,20 @@
 }
 
 
-/* RIGHT */
+/* =========================================================
+   RIGHT SIDE
+   ========================================================= */
 
 .assignment-right {
+    min-width: 0;
+
     display: flex;
 
     flex-direction: column;
 
     align-items: flex-end;
+
+    justify-content: center;
 
     gap: 12px;
 }
@@ -592,6 +704,10 @@
 }
 
 
+/* =========================================================
+   VIEW BUTTON
+   ========================================================= */
+
 .view-button {
     display: flex;
 
@@ -617,6 +733,8 @@
 
     font-weight: 600;
 
+    text-decoration: none;
+
     transition: .2s ease;
 }
 
@@ -629,7 +747,13 @@
 }
 
 
+/* =========================================================
+   EMPTY STATE
+   ========================================================= */
+
 .empty-state {
+    width: 100%;
+
     padding: 55px 25px;
 
     border-radius: 22px;
@@ -666,17 +790,21 @@
 }
 
 .empty-state h3 {
+    margin: 0;
+
     color: #183b8c;
 
     font-size: 17px;
 }
 
 .empty-state p {
-    margin-top: 7px;
+    margin: 7px 0 0;
 
     color: #7d899e;
 
     font-size: 11px;
+
+    line-height: 1.5;
 }
 
 .browse-button {
@@ -700,6 +828,8 @@
 
     font-weight: 600;
 
+    text-decoration: none;
+
     box-shadow:
         0 6px 16px rgba(36,93,222,.2);
 }
@@ -709,8 +839,13 @@
 }
 
 
+/* =========================================================
+   COMMUNITY STRIP
+   ========================================================= */
 
 .community-strip {
+    width: 100%;
+
     margin-top: 20px;
 
     min-height: 91px;
@@ -741,11 +876,15 @@
     align-items: center;
 
     gap: 14px;
+
+    min-width: 0;
 }
 
 .community-main-icon {
     width: 52px;
     height: 52px;
+
+    flex-shrink: 0;
 
     border-radius: 50%;
 
@@ -763,17 +902,19 @@
 }
 
 .community-message h3 {
+    margin: 0;
+
     color: #173b8e;
 
     font-size: 14px;
 }
 
 .community-message p {
+    margin: 3px 0 0;
+
     color: #8490a5;
 
     font-size: 9px;
-
-    margin-top: 3px;
 }
 
 .community-actions {
@@ -782,6 +923,8 @@
     align-items: center;
 
     gap: 30px;
+
+    flex-shrink: 0;
 }
 
 .community-item {
@@ -819,193 +962,87 @@
 }
 
 
-.dashboard-footer {
-    margin-top: 18px;
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
 
-    min-height: 58px;
-
-    padding: 13px 20px;
-
-    border-radius: 17px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #174cc5,
-            #103b9d
-        );
-
-    color: #fff;
-
-    display: flex;
-
-    justify-content: space-between;
-
-    align-items: center;
-
-    gap: 20px;
-
-    box-shadow:
-        0 10px 25px rgba(15,61,186,.18);
-}
-
-.dashboard-footer div {
-    display: flex;
-
-    align-items: center;
-
-    gap: 9px;
-
-    font-size: 9px;
-}
-
-.dashboard-footer p {
-    font-size: 9px;
-
-    opacity: .9;
-}
+/*
+   IMPORTANT:
+   There are NO .app-layout / .sidebar / .navbar /
+   .header / .footer rules here.
+*/
 
 
-@media(max-width:1250px) {
+@media (max-width: 1250px) {
+
+    .assignment-content {
+        padding: 28px 30px 40px;
+    }
 
     .stats-grid {
         grid-template-columns:
-            repeat(2,1fr);
-    }
-
-    .quick-action {
-        width: 180px;
+            repeat(2, minmax(0, 1fr));
     }
 
     .assignment-card {
         grid-template-columns:
             55px
-            minmax(0,1fr)
+            minmax(0, 1fr)
             130px;
     }
 }
 
 
-@media(max-width:1000px) {
+@media (max-width: 900px) {
 
-    .header-inner {
-        padding: 15px 0;
-
-        flex-direction: column;
+    .assignment-content {
+        padding: 25px 24px 35px;
     }
-
-    .header-actions {
-        width: 100%;
-
-        justify-content: center;
-
-        flex-wrap: wrap;
-    }
-
-    .app-layout {
-        grid-template-columns: 1fr;
-    }
-
-    .sidebar {
-        position: relative;
-
-        top: auto;
-
-        min-height: auto;
-    }
-
-    .sidebar-nav {
-        display: grid;
-
-        grid-template-columns:
-            repeat(2,1fr);
-    }
-
-    .sidebar-volunteer-card {
-        margin-top: 18px;
-    }
-
-    .logout-button {
-        max-width: 200px;
-    }
-}
-
-
-@media(max-width:800px) {
 
     .assignment-card {
         grid-template-columns:
             55px
-            minmax(0,1fr);
+            minmax(0, 1fr);
     }
 
     .assignment-right {
-        grid-column: 2;
+        grid-column: 1 / -1;
+
+        width: 100%;
 
         flex-direction: row;
 
         align-items: center;
 
         justify-content: space-between;
+
+        padding-top: 12px;
+
+        border-top: 1px solid #edf0f6;
     }
 
     .severity {
         text-align: left;
     }
+
+    .community-strip {
+        flex-direction: column;
+
+        align-items: flex-start;
+    }
+
+    .community-actions {
+        width: 100%;
+
+        justify-content: space-around;
+    }
 }
 
 
-@media(max-width:700px) {
+@media (max-width: 700px) {
 
-    .header-inner {
-        width: 92%;
-    }
-
-    .brand {
-        flex-direction: column;
-
-        text-align: center;
-    }
-
-    .brand img {
-        width: 70px;
-        height: 70px;
-    }
-
-    .brand-text h1 {
-        font-size: 26px;
-    }
-
-    .header-actions {
-        flex-direction: column;
-    }
-
-    .quick-action {
-        width: 100%;
-
-        max-width: 350px;
-    }
-
-    .profile-button {
-        width: 100%;
-
-        max-width: 350px;
-
-        height: 50px;
-    }
-
-    .app-layout {
-        width: 92%;
-
-        margin-top: 18px;
-    }
-
-    .sidebar-nav {
-        grid-template-columns: 1fr;
-    }
-
-    .stats-grid {
-        grid-template-columns: 1fr;
+    .assignment-content {
+        padding: 20px 16px 30px;
     }
 
     .page-heading {
@@ -1016,8 +1053,14 @@
         font-size: 25px;
     }
 
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+
     .assignment-card {
-        grid-template-columns: 50px minmax(0,1fr);
+        grid-template-columns:
+            50px
+            minmax(0, 1fr);
 
         padding: 15px;
     }
@@ -1039,16 +1082,6 @@
 
     .assignment-right {
         grid-column: 1 / -1;
-
-        padding-top: 10px;
-
-        border-top: 1px solid #edf0f6;
-    }
-
-    .community-strip {
-        flex-direction: column;
-
-        align-items: flex-start;
     }
 
     .community-actions {
@@ -1058,16 +1091,14 @@
 
         gap: 10px;
     }
-
-    .dashboard-footer {
-        flex-direction: column;
-
-        text-align: center;
-    }
 }
 
 
-@media(max-width:450px) {
+@media (max-width: 450px) {
+
+    .assignment-content {
+        padding: 16px 12px 25px;
+    }
 
     .filter-tab {
         padding: 10px 13px;
