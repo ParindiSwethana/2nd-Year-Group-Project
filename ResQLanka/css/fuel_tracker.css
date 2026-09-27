@@ -187,26 +187,6 @@
     font-size:11px;
 }
 
-.station-vote-counts {
-    display:flex;
-    gap:5px;
-    align-items:center;
-}
-
-.station-vote-counts span {
-    font-size:8px;
-    font-weight:600;
-    white-space:nowrap;
-}
-
-.available-count {
-    color:#00a328;
-}
-
-.out-count {
-    color:#f20e0e;
-}
-
 .status-available {
     color:#00a328;
     background:#bff7c8;
@@ -220,6 +200,26 @@
 .status-unknown {
     color:#1264e8;
     background:#cfe0ff;
+}
+
+.station-vote-counts {
+    display:flex;
+    flex-direction:column;
+    gap:1px;
+}
+
+.station-vote-counts span {
+    font-size:7px;
+    font-weight:600;
+    white-space:nowrap;
+}
+
+.available-count {
+    color:#00a328;
+}
+
+.out-count {
+    color:#f20e0e;
 }
 
 .station-votes form {
