@@ -183,12 +183,40 @@ function registerSelected($field, $value, $old)
                                     Select District
                                 </option>
 
+                                <option value="Ampara" <?= registerSelected("district", "Ampara", $old) ?>>
+                                    Ampara
+                                </option>
+
+                                <option value="Anuradhapura" <?= registerSelected("district", "Anuradhapura", $old) ?>>
+                                    Anuradhapura
+                                </option>
+
+                                <option value="Badulla" <?= registerSelected("district", "Badulla", $old) ?>>
+                                    Badulla
+                                </option>
+
+                                <option value="Batticaloa" <?= registerSelected("district", "Batticaloa", $old) ?>>
+                                    Batticaloa
+                                </option>
+
                                 <option value="Colombo" <?= registerSelected("district", "Colombo", $old) ?>>
                                     Colombo
                                 </option>
 
+                                <option value="Galle" <?= registerSelected("district", "Galle", $old) ?>>
+                                    Galle
+                                </option>
+
                                 <option value="Gampaha" <?= registerSelected("district", "Gampaha", $old) ?>>
                                     Gampaha
+                                </option>
+
+                                <option value="Hambantota" <?= registerSelected("district", "Hambantota", $old) ?>>
+                                    Hambantota
+                                </option>
+
+                                <option value="Jaffna" <?= registerSelected("district", "Jaffna", $old) ?>>
+                                    Jaffna
                                 </option>
 
                                 <option value="Kalutara" <?= registerSelected("district", "Kalutara", $old) ?>>
@@ -199,24 +227,60 @@ function registerSelected($field, $value, $old)
                                     Kandy
                                 </option>
 
-                                <option value="Galle" <?= registerSelected("district", "Galle", $old) ?>>
-                                    Galle
+                                <option value="Kegalle" <?= registerSelected("district", "Kegalle", $old) ?>>
+                                    Kegalle
                                 </option>
 
-                                <option value="Matara"<?= registerSelected("district", "Matara", $old) ?>>
-                                    Matara
+                                <option value="Kilinochchi" <?= registerSelected("district", "Kilinochchi", $old) ?>>
+                                    Kilinochchi
                                 </option>
 
                                 <option value="Kurunegala" <?= registerSelected("district", "Kurunegala", $old) ?>>
                                     Kurunegala
                                 </option>
 
-                                <option value="Anuradhapura" <?= registerSelected("district", "Anuradhapura", $old) ?>>
-                                    Anuradhapura
+                                <option value="Mannar" <?= registerSelected("district", "Mannar", $old) ?>>
+                                    Mannar
                                 </option>
 
-                                <option value="Jaffna" <?= registerSelected("district", "Jaffna", $old)?>>
-                                    Jaffna
+                                <option value="Matale" <?= registerSelected("district", "Matale", $old) ?>>
+                                    Matale
+                                </option>
+
+                                <option value="Matara" <?= registerSelected("district", "Matara", $old) ?>>
+                                    Matara
+                                </option>
+
+                                <option value="Monaragala" <?= registerSelected("district", "Monaragala", $old) ?>>
+                                    Monaragala
+                                </option>
+
+                                <option value="Mullaitivu" <?= registerSelected("district", "Mullaitivu", $old) ?>>
+                                    Mullaitivu
+                                </option>
+
+                                <option value="Nuwara Eliya" <?= registerSelected("district", "Nuwara Eliya", $old) ?>>
+                                    Nuwara Eliya
+                                </option>
+
+                                <option value="Polonnaruwa" <?= registerSelected("district", "Polonnaruwa", $old) ?>>
+                                    Polonnaruwa
+                                </option>
+
+                                <option value="Puttalam" <?= registerSelected("district", "Puttalam", $old) ?>>
+                                    Puttalam
+                                </option>
+
+                                <option value="Ratnapura" <?= registerSelected("district", "Ratnapura", $old) ?>>
+                                    Ratnapura
+                                </option>
+
+                                <option value="Trincomalee" <?= registerSelected("district", "Trincomalee", $old) ?>>
+                                    Trincomalee
+                                </option>
+
+                                <option value="Vavuniya" <?= registerSelected("district", "Vavuniya", $old) ?>>
+                                    Vavuniya
                                 </option>
                             </select>
 
