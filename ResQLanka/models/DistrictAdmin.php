@@ -17,7 +17,7 @@ class DistrictAdmin
     public function getAll($district = "")
     {
         $query = "
-            SELECT user_id, first_name, last_name, email, phone, nic, district, status
+            SELECT user_id, first_name, last_name, username, email, phone, nic, district, status
             FROM {$this->table}
             WHERE role = :role
         ";
@@ -39,8 +39,8 @@ class DistrictAdmin
     public function getById($id)
     {
         $query = "
-            SELECT user_id, first_name, last_name, date_of_birth, gender, email, phone,
-                   address, district, nic, emergency_contact_name, emergency_contact_phone, status
+            SELECT user_id, first_name, last_name, username, date_of_birth, gender, email, phone,
+                   address, office_contact, district, nic, status
             FROM {$this->table}
             WHERE user_id = :id AND role = :role
             LIMIT 1
@@ -68,6 +68,21 @@ class DistrictAdmin
         return $stmt->fetch(PDO::FETCH_ASSOC) !== false;
     }
 
+    public function usernameExists($username, $excludeId = 0)
+    {
+        $query = "
+            SELECT user_id
+            FROM {$this->table}
+            WHERE username = :username AND user_id <> :exclude_id
+            LIMIT 1
+        ";
+
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute(["username" => $username, "exclude_id" => $excludeId]);
+
+        return $stmt->fetch(PDO::FETCH_ASSOC) !== false;
+    }
+
     public function nicExists($nic, $excludeId = 0)
     {
         $query = "
@@ -85,20 +100,20 @@ class DistrictAdmin
 
     public function create($data)
     {
-        // Same columns as User::register(); tier and points are unused for administrators
+        // Same columns as User::register(); emergency contact, tier and points are unused for administrators
         $query = "
             INSERT INTO {$this->table}
             (
                 first_name, last_name, date_of_birth, gender, username, email, password,
-                phone, address, district, occupation, nic,
+                phone, address, office_contact, district, occupation, nic,
                 emergency_contact_name, emergency_contact_phone,
                 role, tier, points, status
             )
             VALUES
             (
                 :first_name, :last_name, :date_of_birth, :gender, :username, :email, :password,
-                :phone, :address, :district, 'District Administrator', :nic,
-                :emergency_contact_name, :emergency_contact_phone,
+                :phone, :address, :office_contact, :district, 'District Administrator', :nic,
+                '', '',
                 'district_admin', 'Bronze', 0, 'active'
             )
         ";
@@ -110,15 +125,14 @@ class DistrictAdmin
             "last_name" => $data["last_name"],
             "date_of_birth" => $data["date_of_birth"],
             "gender" => $data["gender"],
-            "username" => $data["email"],
+            "username" => $data["username"],
             "email" => $data["email"],
             "password" => $data["password"],
             "phone" => $data["phone"],
             "address" => $data["address"],
+            "office_contact" => $data["office_contact"],
             "district" => $data["district"],
-            "nic" => $data["nic"],
-            "emergency_contact_name" => $data["emergency_contact_name"],
-            "emergency_contact_phone" => $data["emergency_contact_phone"]
+            "nic" => $data["nic"]
         ]);
     }
 
@@ -134,10 +148,9 @@ class DistrictAdmin
                 email = :email,
                 phone = :phone,
                 address = :address,
+                office_contact = :office_contact,
                 district = :district,
                 nic = :nic,
-                emergency_contact_name = :emergency_contact_name,
-                emergency_contact_phone = :emergency_contact_phone,
                 status = :status
             WHERE user_id = :id AND role = :role
         ";
@@ -149,14 +162,13 @@ class DistrictAdmin
             "last_name" => $data["last_name"],
             "date_of_birth" => $data["date_of_birth"],
             "gender" => $data["gender"],
-            "username" => $data["email"],
+            "username" => $data["username"],
             "email" => $data["email"],
             "phone" => $data["phone"],
             "address" => $data["address"],
+            "office_contact" => $data["office_contact"],
             "district" => $data["district"],
             "nic" => $data["nic"],
-            "emergency_contact_name" => $data["emergency_contact_name"],
-            "emergency_contact_phone" => $data["emergency_contact_phone"],
             "status" => $data["status"],
             "id" => $id,
             "role" => $this->role

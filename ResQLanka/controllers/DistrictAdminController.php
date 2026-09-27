@@ -67,8 +67,7 @@ $phone = trim($_POST["phone"] ?? "");
 $address = trim($_POST["address"] ?? "");
 $district = trim($_POST["district"] ?? "");
 $nic = strtoupper(trim($_POST["nic"] ?? ""));
-$emergencyContactName = trim($_POST["emergency_contact_name"] ?? "");
-$emergencyContactPhone = trim($_POST["emergency_contact_phone"] ?? "");
+$officeContact = trim($_POST["office_contact"] ?? "");
 $status = $_POST["status"] ?? "active";
 $password = $_POST["password"] ?? "";
 $confirmPassword = $_POST["confirm_password"] ?? "";
@@ -111,6 +110,13 @@ if (!in_array($district, $districts, true)) {
     $errors[] = "Please select the district this administrator will manage.";
 }
 
+// The username is always "<District> Office", set here so it cannot be changed in the form
+$username = $district . " Office";
+
+if (in_array($district, $districts, true) && $districtAdminModel->usernameExists($username, $id)) {
+    $errors[] = "The username \"" . $username . "\" is already taken. Each district can have only one District Administrator account.";
+}
+
 if ($nic === "") {
     $errors[] = "NIC number is required.";
 } elseif (!preg_match("/^([0-9]{9}[VX]|[0-9]{12})$/", $nic)) {
@@ -119,14 +125,10 @@ if ($nic === "") {
     $errors[] = "This NIC number is already registered.";
 }
 
-if ($emergencyContactName === "") {
-    $errors[] = "Emergency contact name is required.";
-}
-
-if ($emergencyContactPhone === "") {
-    $errors[] = "Emergency contact number is required.";
-} elseif (!preg_match("/^[0-9+\-\s]{9,20}$/", $emergencyContactPhone)) {
-    $errors[] = "Enter a valid emergency contact number.";
+if ($officeContact === "") {
+    $errors[] = "Office contact number is required.";
+} elseif (!preg_match("/^[0-9+\-\s]{9,20}$/", $officeContact)) {
+    $errors[] = "Enter a valid office contact number.";
 }
 
 if ($isUpdate && !in_array($status, ["active", "inactive"], true)) {
@@ -153,8 +155,7 @@ $oldValues = [
     "address" => $address,
     "district" => $district,
     "nic" => $nic,
-    "emergency_contact_name" => $emergencyContactName,
-    "emergency_contact_phone" => $emergencyContactPhone,
+    "office_contact" => $officeContact,
     "status" => $status
 ];
 
@@ -174,13 +175,13 @@ $accountData = [
     "last_name" => $nameParts[1] ?? "",
     "date_of_birth" => $dateOfBirth,
     "gender" => $gender,
+    "username" => $username,
     "email" => $email,
     "phone" => $phone,
     "address" => $address,
+    "office_contact" => $officeContact,
     "district" => $district,
     "nic" => $nic,
-    "emergency_contact_name" => $emergencyContactName,
-    "emergency_contact_phone" => $emergencyContactPhone,
     "status" => $status
 ];
 
@@ -197,7 +198,7 @@ try {
         $accountData["password"] = password_hash($password, PASSWORD_DEFAULT);
         $districtAdminModel->create($accountData);
 
-        $_SESSION["district_admin_success"] = "District Administrator account created. They can sign in with their email address.";
+        $_SESSION["district_admin_success"] = "District Administrator account created. They can sign in with the username \"" . $username . "\" or their email address.";
     }
 } catch (PDOException $exception) {
     $_SESSION["district_admin_errors"] = ["A database error occurred. Please check the details and try again."];

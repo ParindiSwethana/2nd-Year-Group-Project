@@ -22,8 +22,7 @@ $isEdit = $id > 0;
 
 $values = [
     "full_name" => "", "date_of_birth" => "", "gender" => "", "email" => "", "phone" => "",
-    "address" => "", "district" => "", "nic" => "", "emergency_contact_name" => "",
-    "emergency_contact_phone" => "", "status" => "active"
+    "address" => "", "office_contact" => "", "district" => "", "nic" => "", "status" => "active"
 ];
 
 if ($isEdit) {
@@ -63,7 +62,7 @@ include __DIR__ . "/../layouts/super_admin_sidebar.php";
                 <h2><?= $isEdit ? "Edit District Administrator" : "Add District Administrator" ?></h2>
                 <p><?= $isEdit
                     ? "Update the details, assigned district or status of this account"
-                    : "The new administrator signs in with the email address and password entered here" ?></p>
+                    : "The new administrator signs in with the username or email address and the password entered here" ?></p>
             </div>
             <a href="manage_disctict_admins.php" class="btn-secondary">
                 <i class="fa-solid fa-arrow-left"></i> Back to list
@@ -152,6 +151,14 @@ include __DIR__ . "/../layouts/super_admin_sidebar.php";
             </div>
 
             <div class="field">
+                <label for="username">Username (set from the district)</label>
+                <div class="input-box">
+                    <i class="fa-solid fa-at"></i>
+                    <input type="text" id="username" value="<?= escape($values["district"] !== "" ? $values["district"] . " Office" : "") ?>" placeholder="Select a district first" readonly>
+                </div>
+            </div>
+
+            <div class="field">
                 <label for="address">Office Address</label>
                 <div class="input-box">
                     <i class="fa-solid fa-building"></i>
@@ -160,18 +167,10 @@ include __DIR__ . "/../layouts/super_admin_sidebar.php";
             </div>
 
             <div class="field">
-                <label for="emergency_contact_name">Emergency Contact Name</label>
-                <div class="input-box">
-                    <i class="fa-solid fa-user-group"></i>
-                    <input type="text" id="emergency_contact_name" name="emergency_contact_name" maxlength="100" value="<?= escape($values["emergency_contact_name"]) ?>" required>
-                </div>
-            </div>
-
-            <div class="field">
-                <label for="emergency_contact_phone">Emergency Contact Number</label>
+                <label for="office_contact">Office Contact Number</label>
                 <div class="input-box">
                     <i class="fa-solid fa-phone-volume"></i>
-                    <input type="tel" id="emergency_contact_phone" name="emergency_contact_phone" maxlength="20" value="<?= escape($values["emergency_contact_phone"]) ?>" required>
+                    <input type="tel" id="office_contact" name="office_contact" maxlength="20" value="<?= escape($values["office_contact"]) ?>" required>
                 </div>
             </div>
 
@@ -193,6 +192,7 @@ include __DIR__ . "/../layouts/super_admin_sidebar.php";
                 <div class="input-box">
                     <i class="fa-solid fa-lock"></i>
                     <input type="password" id="password" name="password" minlength="8" autocomplete="new-password" <?= $isEdit ? "" : "required" ?>>
+                    <i class="fa-regular fa-eye toggle-password" data-target="password"></i>
                 </div>
             </div>
 
@@ -201,6 +201,7 @@ include __DIR__ . "/../layouts/super_admin_sidebar.php";
                 <div class="input-box">
                     <i class="fa-solid fa-lock"></i>
                     <input type="password" id="confirm_password" name="confirm_password" minlength="8" autocomplete="new-password" <?= $isEdit ? "" : "required" ?>>
+                    <i class="fa-regular fa-eye toggle-password" data-target="confirm_password"></i>
                 </div>
             </div>
 
@@ -214,6 +215,8 @@ include __DIR__ . "/../layouts/super_admin_sidebar.php";
 
     </main>
 </div>
+
+<script src="../../js/district_admin_form.js"></script>
 
 <?php
 include __DIR__ . "/../layouts/footer.php";

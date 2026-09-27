@@ -453,3 +453,39 @@
         justify-content: flex-end;
     }
 }
+
+/* Show / hide password icon (same as the registration form) */
+.input-box .toggle-password {
+    position: absolute;
+    left: auto;
+    right: 18px;
+    top: 50%;
+    pointer-events: auto;
+    transform: translateY(-50%);
+    color: #7b89a8;
+    cursor: pointer;
+    z-index: 2;
+    user-select: none;
+    transition: .2s;
+}
+
+.input-box .toggle-password:hover {
+    color: #2563ff;
+}
+
+.input-box input#password,
+.input-box input#confirm_password {
+    padding-right: 52px;
+}
+
+/* Hide Microsoft Edge's built-in reveal button so only our eye icon is shown */
+.input-box input::-ms-reveal,
+.input-box input::-ms-clear {
+    display: none;
+}
+
+.input-box input[readonly] {
+    background: #f5f8ff;
+    color: #475569;
+    cursor: not-allowed;
+}

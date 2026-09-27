@@ -124,6 +124,11 @@ form label {
     background:#fff;
 }
 
+.input-box input::-ms-reveal,
+.input-box input::-ms-clear {
+    display: none;
+}
+
 .input-box input:focus {
     border-color:#2563ff;
     box-shadow:0 0 0 4px rgba(37,99,255,.12);

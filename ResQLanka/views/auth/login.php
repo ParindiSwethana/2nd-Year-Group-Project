@@ -55,8 +55,8 @@ require_once("../../config/session.php");
                 <label>Password</label>
                 <div class="input-box">
                     <i class="fa-solid fa-lock"></i>
-                    <input type="password" name="password" placeholder="Enter your password" required>
-                    <i class="fa-regular fa-eye"></i>
+                    <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                    <i class="fa-regular fa-eye toggle-password" data-target="password"></i>
                 </div>
 
                 <button type="submit" class="signin">
@@ -178,5 +178,17 @@ require_once("../../config/session.php");
         </section>
     </main>
 </div>
+
+<script>
+document.querySelectorAll(".toggle-password").forEach(function (icon) {
+    icon.addEventListener("click", function () {
+        const input = document.getElementById(icon.dataset.target);
+        const hidden = input.type === "password";
+        input.type = hidden ? "text" : "password";
+        icon.classList.toggle("fa-eye", !hidden);
+        icon.classList.toggle("fa-eye-slash", hidden);
+    });
+});
+</script>
 
 <?php require_once __DIR__ . "/../layouts/footer.php"; ?>

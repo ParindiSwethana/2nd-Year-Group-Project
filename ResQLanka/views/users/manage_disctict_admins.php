@@ -113,6 +113,7 @@ include __DIR__ . "/../layouts/super_admin_sidebar.php";
                     <thead>
                         <tr>
                             <th>Name</th>
+                            <th>Username</th>
                             <th>Email</th>
                             <th>Contact</th>
                             <th>NIC</th>
@@ -125,6 +126,7 @@ include __DIR__ . "/../layouts/super_admin_sidebar.php";
                         <?php foreach ($admins as $admin): ?>
                         <tr>
                             <td data-label="Name"><?= escape($admin["first_name"] . " " . $admin["last_name"]) ?></td>
+                            <td data-label="Username"><?= escape($admin["username"]) ?></td>
                             <td data-label="Email"><?= escape($admin["email"]) ?></td>
                             <td data-label="Contact"><?= escape($admin["phone"]) ?></td>
                             <td data-label="NIC"><?= escape($admin["nic"]) ?></td>

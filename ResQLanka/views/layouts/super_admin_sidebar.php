@@ -4,6 +4,10 @@
             <span class="nav-icon"><i class="fa-solid fa-border-all"></i></span>
             <span>Dashboard</span>
         </a>
+        <a href="../users/manage_disctict_admins.php" class="nav-item <?= ($activePage ?? '') === 'district_admins' ? 'active' : '' ?>">
+            <span class="nav-icon"><i class="fa-solid fa-user-shield"></i></span>
+            <span>District Administrators</span>
+        </a>
         <a href="../disaster/manage_disasters.php" class="nav-item <?= ($activePage ?? '') === 'disasters' ? 'active' : '' ?>">
             <span class="nav-icon"><i class="fa-solid fa-bell"></i></span>
             <span>Manage Disasters</span>
