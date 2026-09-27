@@ -403,25 +403,6 @@ form label {
     font-size:14px;
 }
 
-footer {
-    margin-top:40px;
-    background:#0f3dba;
-    color:#fff;
-    border-radius:20px;
-    padding:20px 30px;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    font-size:14px;
-    box-shadow:0 10px 30px rgba(15,61,186,.25);
-}
-
-footer div {
-    display:flex;
-    align-items:center;
-    gap:10px;
-}
-
 @media(max-width:1200px){
     
     
@@ -442,11 +423,6 @@ footer div {
     }
     .status {
         margin-top:15px;
-    }
-    footer {
-        flex-direction:column;
-        gap:15px;
-        text-align:center;
     }
 }
 
