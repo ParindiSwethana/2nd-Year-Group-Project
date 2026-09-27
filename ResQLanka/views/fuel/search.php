@@ -139,7 +139,7 @@ include __DIR__ . "/../layouts/navbar.php";
                 </section>
             </aside>
         </section>
-
-        <?php include __DIR__ . "/../layouts/footer.php"; ?>
     </main>
 </div>
+
+<?php include __DIR__ . "/../layouts/footer.php"; ?>
