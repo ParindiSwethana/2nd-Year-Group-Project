@@ -410,32 +410,6 @@
     color: #fff;
 }
 
-.dashboard-footer {
-    margin-top: 18px;
-    min-height: 58px;
-    padding: 13px 20px;
-    border-radius: 17px;
-    background: linear-gradient(135deg,#174cc5,#103b9d);
-    color: #fff;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 20px;
-    box-shadow: 0 10px 25px rgba(15,61,186,.18);
-}
-
-.dashboard-footer div {
-    display: flex;
-    align-items: center;
-    gap: 9px;
-    font-size: 9px;
-}
-
-.dashboard-footer p {
-    font-size: 9px;
-    opacity: .9;
-}
-
 @media (max-width: 1250px) {
     .summary-cards { 
         grid-template-columns: 1fr; 
@@ -474,10 +448,6 @@
 @media (max-width: 700px) {
     .assignments-content { padding: 15px; }
     .page-heading h2 { font-size: 24px; }
-    .dashboard-footer {
-        flex-direction:column;
-        text-align:center;
-    }
 }
 
 @media (max-width: 450px) {

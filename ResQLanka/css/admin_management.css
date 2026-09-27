@@ -1,5 +1,4 @@
 /* District Administrator accounts and Notices pages – based on manage_disasters.css and registerstyles.css */
-
 .admin-content {
     min-width: 0;
     background: #fff;
@@ -453,33 +452,4 @@
     .data-table td.action-cell {
         justify-content: flex-end;
     }
-}
-
-/* Footer (same style as the other pages, placed below the layout) */
-.dashboard-footer {
-    width: 94%;
-    max-width: 1600px;
-    margin: 0 auto 28px;
-    min-height: 58px;
-    padding: 13px 20px;
-    border-radius: 17px;
-    background: linear-gradient(135deg,#174cc5,#103b9d);
-    color: #fff;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 20px;
-    box-shadow: 0 10px 25px rgba(15,61,186,.18);
-}
-
-.dashboard-footer div {
-    display: flex;
-    align-items: center;
-    gap: 9px;
-    font-size: 11px;
-}
-
-.dashboard-footer p {
-    font-size: 11px;
-    opacity: .9;
 }

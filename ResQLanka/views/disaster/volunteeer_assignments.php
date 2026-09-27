@@ -638,25 +638,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                                     Select priority level
                                 </option>
 
-                                <option
-                                    value="Low"
-                                    <?= (($severity ?? '') === 'Low') ? 'selected' : '' ?>
-                                >
-                                    Low
-                                </option>
-
-                                <option
-                                    value="Medium"
-                                    <?= (($severity ?? '') === 'Medium') ? 'selected' : '' ?>
-                                >
-                                    Medium
-                                </option>
-
-                                <option
-                                    value="High"
-                                    <?= (($severity ?? '') === 'High') ? 'selected' : '' ?>
-                                >
-                                    High
+                                <option value="">
+                                    Select priority level
                                 </option>
 
                                 <option
@@ -666,6 +649,19 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                                     Critical
                                 </option>
 
+                                <option
+                                    value="Moderate"
+                                    <?= (($severity ?? '') === 'Moderate') ? 'selected' : '' ?>
+                                >
+                                    Moderate
+                                </option>
+
+                                <option
+                                    value="Minor"
+                                    <?= (($severity ?? '') === 'Minor') ? 'selected' : '' ?>
+                                >
+                                    Minor
+                                </option>
                             </select>
 
                             <i class="fa-solid fa-chevron-down"></i>

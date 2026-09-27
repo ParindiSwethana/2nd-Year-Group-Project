@@ -406,22 +406,7 @@ function registerSelected($field, $value, $old)
 
     </main>
 
-    <footer>
-
-        <div>
-            <i class="fa-solid fa-shield"></i>
-            Building safer communities through preparedness,
-            response and resilience.
-        </div>
-        <div>
-            © 2026 ResQ Lanka. All rights reserved.
-        </div>
-
-    </footer>
-
 </div>
 
 <script src="../../js/register.js"></script>
-
-</body>
-</html>
+<?php require_once __DIR__ . "/../layouts/footer.php"; ?>

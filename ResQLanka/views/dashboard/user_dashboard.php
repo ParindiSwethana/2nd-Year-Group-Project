@@ -458,10 +458,7 @@ include __DIR__ . "/../layouts/sidebar.php";
         </div>
     </section>
 
-
-<?php
-include __DIR__ . "/../layouts/footer.php";
-?>
-
 </main>
 </div>
+
+<?php include __DIR__ . "/../layouts/footer.php"; ?>
