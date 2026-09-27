@@ -7,12 +7,7 @@ require_once "../../config/database.php";
 $database = new Database();
 $conn = $database->connect();
 
-/*$createdBy = $_SESSION["user_id"] ?? null;
-
-if (!$createdBy) {
-    die("User session not found. Please log in again.");
-}*/
-
+$createdBy = $_SESSION["user_id"] ?? null;
 
 function escape($value)
 {
@@ -85,12 +80,7 @@ try {
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
-    /*
-    |--------------------------------------------------------------------------
-    | GET FORM VALUES
-    |--------------------------------------------------------------------------
-    */
-
+    
     $disasterId = $_POST["disaster_id"] ?? "";
     $title = trim($_POST["title"] ?? "");
     $category = trim($_POST["assignment_category"] ?? "");
@@ -104,12 +94,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $description = trim($_POST["description"] ?? "");
     $additionalInfo = trim($_POST["additional_info"] ?? "");
 
-
-    /*
-    |--------------------------------------------------------------------------
-    | CHECKBOX REQUIREMENTS
-    |--------------------------------------------------------------------------
-    */
+    
 
     $requirements = $_POST["volunteer_requirements"] ?? [];
 
@@ -279,6 +264,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <?php include "../layouts/header.php"; ?>
 
 <?php include "../layouts/navbar.php"; ?>
+
+<div class="app-layout">
 
 <?php include "../layouts/district_admin_sidebar.php"; ?>
 
@@ -1219,6 +1206,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 
 </main>
+
+</div>
 
 
 <?php include "../layouts/footer.php"; ?>
