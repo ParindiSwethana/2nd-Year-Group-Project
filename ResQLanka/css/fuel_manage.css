@@ -1,0 +1,257 @@
+.fuel-admin-page {
+    min-width:0;
+}
+
+.fuel-admin-header {
+    background:#fff;
+    border:1px solid #e5ecfa;
+    border-radius:20px;
+    padding:22px 24px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:20px;
+    box-shadow:0 14px 40px rgba(16,44,113,.09);
+}
+
+.fuel-admin-header h2 {
+    color:#102c71;
+    font-size:25px;
+}
+
+.fuel-admin-header p {
+    margin-top:4px;
+    color:#6b7893;
+    font-size:12px;
+}
+
+.tracker-link {
+    padding:11px 15px;
+    border-radius:10px;
+    background:#1d59e8;
+    color:#fff;
+    font-size:11px;
+    font-weight:600;
+}
+
+.fuel-admin-message,
+.district-filter,
+.station-form,
+.managed-stations {
+    background:#fff;
+    border:1px solid #e5ecfa;
+    border-radius:18px;
+    box-shadow:0 12px 30px rgba(16,44,113,.08);
+}
+
+.fuel-admin-message {
+    margin-top:16px;
+    padding:12px 15px;
+    color:#174fd2;
+    background:#edf3ff;
+    font-size:12px;
+    font-weight:600;
+}
+
+.district-filter {
+    margin-top:18px;
+    padding:15px 18px;
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.district-filter label {
+    font-size:12px;
+    font-weight:600;
+}
+
+.district-filter select {
+    min-width:210px;
+    height:38px;
+    border:1px solid #d5dff1;
+    border-radius:9px;
+    padding:0 10px;
+    color:#52617e;
+}
+
+.fuel-admin-grid {
+    margin-top:18px;
+    display:grid;
+    grid-template-columns:360px minmax(0,1fr);
+    gap:18px;
+    align-items:start;
+}
+
+.station-form,
+.managed-stations {
+    padding:20px;
+}
+
+.station-form h3,
+.managed-stations h3 {
+    color:#102c71;
+    font-size:16px;
+    margin-bottom:16px;
+}
+
+.station-form > label,
+.coordinate-row label {
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+    margin-bottom:12px;
+    color:#53617d;
+    font-size:10px;
+    font-weight:600;
+}
+
+.station-form input,
+.station-form select {
+    width:100%;
+    height:39px;
+    border:1px solid #d5dff1;
+    border-radius:9px;
+    padding:0 10px;
+    outline:none;
+    color:#43516e;
+}
+
+.coordinate-row {
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+}
+
+.station-form-actions {
+    display:flex;
+    gap:10px;
+    align-items:center;
+}
+
+.station-form-actions button,
+.station-form-actions a {
+    border:0;
+    border-radius:9px;
+    padding:10px 14px;
+    font-size:10px;
+    font-weight:600;
+    cursor:pointer;
+}
+
+.station-form-actions button {
+    color:#fff;
+    background:#1d59e8;
+}
+
+.station-form-actions a {
+    color:#53617d;
+    background:#eef2f8;
+}
+
+.managed-stations-title {
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.managed-stations-title span {
+    color:#6b7893;
+    font-size:10px;
+}
+
+.managed-station-card {
+    border:1px solid #e1e8f5;
+    border-radius:12px;
+    padding:14px;
+    margin-top:10px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:15px;
+}
+
+.managed-station-card h4 {
+    color:#172b58;
+    font-size:12px;
+}
+
+.managed-station-card p {
+    color:#6b7893;
+    font-size:9px;
+    margin:4px 0 7px;
+}
+
+.manage-status {
+    padding:3px 7px;
+    border-radius:5px;
+    font-size:8px;
+    font-weight:600;
+    text-transform:capitalize;
+}
+
+.manage-available {
+    color:#07872a;
+    background:#d8f8df;
+}
+
+.manage-out_of_stock {
+    color:#d61c1c;
+    background:#ffe0e0;
+}
+
+.manage-unknown {
+    color:#175ed1;
+    background:#dce8ff;
+}
+
+.managed-actions {
+    display:flex;
+    align-items:center;
+    gap:8px;
+}
+
+.managed-actions a,
+.managed-actions button {
+    padding:7px 9px;
+    border-radius:7px;
+    font-size:9px;
+    font-weight:600;
+    cursor:pointer;
+}
+
+.managed-actions a {
+    color:#174fd2;
+    background:#edf3ff;
+}
+
+.managed-actions button {
+    border:0;
+    color:#d61c1c;
+    background:#fff0f0;
+}
+
+.empty-managed {
+    padding:30px;
+    text-align:center;
+    color:#73809a;
+    font-size:11px;
+}
+
+@media (max-width:1250px) {
+    .fuel-admin-grid {
+        grid-template-columns:1fr;
+    }
+}
+
+@media (max-width:750px) {
+    .fuel-admin-header,
+    .managed-station-card {
+        flex-direction:column;
+        align-items:flex-start;
+    }
+
+    .coordinate-row {
+        grid-template-columns:1fr;
+    }
+}
