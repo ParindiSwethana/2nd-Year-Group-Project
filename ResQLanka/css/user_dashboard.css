@@ -3,13 +3,12 @@
     min-width:0;
 }
 
-/*WELCOME CARD*/
 .welcome-card {
     position:relative;
     overflow:hidden;
     border-radius:25px;
     padding:28px 32px;
-    background: linear-gradient(120deg, #ffffff 0%, #f5f8ff 55%, #eaf1ff 100%);
+    background:linear-gradient(120deg,#ffffff 0%,#f5f8ff 55%,#eaf1ff 100%);
     border:1px solid #e3ebfb;
     box-shadow:0 12px 35px rgba(16,44,113,.08);
 }
@@ -108,7 +107,6 @@
     font-size:17px;
 }
 
-/*STATISTICS*/
 .stats-grid {
     margin-top:22px;
     display:grid;
@@ -239,7 +237,6 @@
     background:#e9f8f1;
 }
 
-/*DASHBOARD GRID*/
 .dashboard-grid {
     margin-top:22px;
     display:grid;
@@ -287,7 +284,6 @@
     white-space:nowrap;
 }
 
-/*ASSIGNMENTS*/
 .assignment-item {
     position:relative;
     display:grid;
@@ -423,7 +419,6 @@
     border-color:#235ee0;
 }
 
-/*DISASTER ALERTS*/
 .alert-card {
     display:flex;
     gap:13px;
@@ -515,7 +510,6 @@
     font-weight:600;
 }
 
-/*COMMUNITY STRIP*/
 .community-strip {
     margin-top:20px;
     min-height:91px;
@@ -590,7 +584,6 @@
     background:#e2e8f2;
 }
 
-/*FOOTER*/
 .dashboard-footer {
     margin-top:18px;
     min-height:58px;
@@ -617,9 +610,7 @@
     opacity:.9;
 }
 
-/*RESPONSIVE*/
 @media(max-width:1250px) {
-
     .stats-grid {
         grid-template-columns:repeat(2,1fr);
     }
@@ -680,7 +671,6 @@
 }
 
 @media(max-width:450px) {
-
     .welcome-card {
         padding:24px 20px;
     }

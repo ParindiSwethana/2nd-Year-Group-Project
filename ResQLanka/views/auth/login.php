@@ -12,43 +12,17 @@ require_once("../../config/session.php");
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="loginstyles.css">
+    <link rel="stylesheet" href="../../css/header_sidebar_navbar.css">
+    <link rel="stylesheet" href="../../css/loginstyles.css">
 </head>
 
 <body>
 
 <div class="background"></div>
 
+<?php include __DIR__ . "/../layouts/navbar.php"; ?>
+
 <div class="container">
-
-    <header>
-        <div class="logo-area">
-            <img src="images/logo.png" alt="logo">
-            <div>
-                <h1>ResQ Lanka</h1>
-                <p>Disaster & Crisis Management System</p>
-            </div>
-        </div>
-
-        <div class="header-buttons">
-            <a href="../fuel/search.php" class="fuel">
-                <i class="fa-solid fa-gas-pump"></i>
-                <div>
-                    <span>CHECK FUEL</span>
-                    <span>AVAILABILITY</span>
-                </div>
-            </a>
-
-            <a href="../disaster/report_disaster.php" class="danger">
-                <i class="fa-solid fa-triangle-exclamation"></i>
-                <div>
-                    <span>INFORM ABOUT</span>
-                    <span>DISASTER!</span>
-                </div>
-            </a>
-        </div>
-
-    </header>
 
 
     <main>
@@ -67,13 +41,15 @@ require_once("../../config/session.php");
 
             <form action="../../controllers/AuthController.php" method="POST">
                 <?php
-                    if(isset($_GET["error"])){echo "<p style='color:red;'>Invalid Username or Password</p>";}
+                    if (isset($_GET["error"])) { echo "<p class='login-message error'>Invalid username or password.</p>"; }
+                    if (isset($_GET["status"])) { echo "<p class='login-message error'>This account is inactive or blocked.</p>"; }
+                    if (isset($_SESSION["login_success"])) { echo "<p class='login-message success'>" . htmlspecialchars($_SESSION["login_success"], ENT_QUOTES, "UTF-8") . "</p>"; unset($_SESSION["login_success"]); }
                 ?>
                 
-                <label>Username</label>
+                <label>Username or Email</label>
                 <div class="input-box">
                     <i class="fa-regular fa-envelope"></i>
-                    <input type="text" name="username" placeholder="Enter your username" required>
+                    <input type="text" name="username" placeholder="Enter your username or email" required>
                 </div>
 
                 <label>Password</label>

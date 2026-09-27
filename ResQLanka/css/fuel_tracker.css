@@ -1,0 +1,443 @@
+.fuel-page {
+    min-width:0;
+}
+
+.fuel-page-full {
+    grid-column:1 / -1;
+}
+
+.fuel-main-card {
+    background:#fff;
+    border:1px solid #e5ecfa;
+    border-radius:22px;
+    padding:22px;
+    display:grid;
+    grid-template-columns:minmax(0,1fr) 250px;
+    gap:24px;
+    box-shadow:0 14px 40px rgba(16,44,113,.09);
+}
+
+.fuel-heading h2 {
+    color:#111;
+    font-size:26px;
+    line-height:1.15;
+}
+
+.fuel-heading p {
+    color:#333;
+    font-size:13px;
+    margin-top:3px;
+}
+
+.fuel-message {
+    margin-top:15px;
+    padding:10px 13px;
+    border-radius:9px;
+    background:#edf3ff;
+    border:1px solid #cad9ff;
+    color:#174fd2;
+    font-size:12px;
+    font-weight:600;
+}
+
+.fuel-search-box {
+    margin-top:18px;
+    padding:15px;
+    background:#f6f8fc;
+    border-radius:12px;
+    box-shadow:0 3px 7px rgba(0,0,0,.18);
+}
+
+.fuel-search-fields {
+    display:grid;
+    grid-template-columns:minmax(0,1.55fr) minmax(150px,1fr) 120px;
+    gap:16px;
+    align-items:end;
+}
+
+.fuel-search-fields label {
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+    color:#111;
+    font-size:12px;
+    font-weight:600;
+}
+
+.fuel-search-fields input,
+.fuel-search-fields select {
+    height:38px;
+    border:1px solid #cbd8f0;
+    border-radius:8px;
+    background:#fff;
+    padding:0 11px;
+    color:#4a5872;
+    outline:none;
+    font-size:12px;
+}
+
+.fuel-search-button {
+    height:38px;
+    border:0;
+    border-radius:8px;
+    background:#0649f5;
+    color:#fff;
+    font-size:12px;
+    font-weight:700;
+    cursor:pointer;
+}
+
+.fuel-search-summary {
+    margin-top:14px;
+    padding:8px 11px;
+    border-radius:7px;
+    border:1px solid #b6c7ff;
+    background:#edf0ff;
+    color:#0649f5;
+    font-size:12x;
+    font-weight:600;
+}
+
+.station-list-box {
+    margin-top:24px;
+    padding:15px;
+    background:#f6f8fc;
+    border-radius:12px;
+    box-shadow:0 3px 7px rgba(0,0,0,.18);
+}
+
+.station-list-title {
+    color:#111;
+    font-size:12px;
+    font-weight:600;
+    margin-bottom:13px;
+}
+
+.station-card {
+    min-height:76px;
+    margin-bottom:10px;
+    padding:10px 11px;
+    background:#fff;
+    border:1px solid #ccd8ff;
+    border-radius:10px;
+    display:grid;
+    grid-template-columns:48px minmax(180px,1fr) 88px 75px 148px;
+    gap:10px;
+    align-items:center;
+    box-shadow:0 2px 5px rgba(34,65,145,.18);
+}
+
+.station-card:last-child {
+    margin-bottom:0;
+}
+
+.station-logo {
+    width:42px;
+    height:42px;
+    border:1px solid #d8deeb;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#d62020;
+    font-size:18px;
+}
+
+.station-details h3 {
+    color:#111;
+    font-size:12px;
+    font-weight:700;
+}
+
+.station-details p {
+    color:#555;
+    font-size:10px;
+    margin-top:5px;
+}
+
+.station-details p i {
+    color:#777;
+    margin-right:3px;
+}
+
+.station-status-block,
+.station-updated {
+    display:flex;
+    flex-direction:column;
+    gap:5px;
+}
+
+.station-status-block > span,
+.station-updated > span {
+    color:#111;
+    font-size:9px;
+    font-weight:700;
+}
+
+.station-updated strong {
+    color:#555;
+    font-size:10px;
+    font-weight:500;
+}
+
+.fuel-status {
+    width:max-content;
+    padding:3px 6px;
+    border-radius:3px;
+    font-size:11px;
+}
+
+.status-available {
+    color:#00a328;
+    background:#bff7c8;
+}
+
+.status-out_of_stock {
+    color:#ff1111;
+    background:#ffd1d1;
+}
+
+.status-unknown {
+    color:#1264e8;
+    background:#cfe0ff;
+}
+
+.station-votes form {
+    display:flex;
+    gap:7px;
+    justify-content:flex-end;
+}
+
+.vote-button {
+    width:66px;
+    height:42px;
+    border-radius:5px;
+    background:#fff;
+    font-size:10px;
+    line-height:1.15;
+    font-weight:700;
+    cursor:pointer;
+}
+
+.vote-available {
+    color:#00a328;
+    border:1px solid #00c438;
+    background:#e6ffe9;
+}
+
+.vote-out {
+    color:#f20e0e;
+    border:1px solid #ff1e1e;
+    background:#fff0f0;
+}
+
+.login-to-vote {
+    color:#174fd2;
+    font-size:10px;
+    font-weight:600;
+}
+
+.no-stations {
+    padding:30px 15px;
+    text-align:center;
+    color:#6a7894;
+    font-size:12px;
+}
+
+.fuel-side-column {
+    display:flex;
+    flex-direction:column;
+}
+
+.side-fuel-box {
+    border:1px solid #d8deeb;
+    border-radius:10px;
+    padding:15px;
+    box-shadow:0 3px 7px rgba(0,0,0,.18);
+}
+
+.side-fuel-box h3 {
+    color:#111;
+    font-size:14px;
+    margin-bottom:12px;
+}
+
+.guide-row {
+    display:flex;
+    gap:10px;
+    align-items:center;
+    margin-top:11px;
+}
+
+.guide-dot {
+    width:31px;
+    height:31px;
+    border-radius:4px;
+    position:relative;
+    flex-shrink:0;
+}
+
+.guide-dot::after {
+    content:"";
+    width:7px;
+    height:7px;
+    border-radius:50%;
+    background:currentColor;
+    position:absolute;
+    inset:0;
+    margin:auto;
+}
+
+.guide-green {
+    color:#00a328;
+    background:#c7f7d0;
+}
+
+.guide-red {
+    color:#f10e0e;
+    background:#ffd7d7;
+}
+
+.guide-blue {
+    color:#1264e8;
+    background:#d6e4ff;
+}
+
+.guide-row div {
+    display:flex;
+    flex-direction:column;
+}
+
+.guide-row strong {
+    font-size:10px;
+}
+
+.guide-row small {
+    color:#666;
+    font-size: 11px;
+}
+
+.fuel-side-spacer {
+    flex:1;
+    min-height:180px;
+}
+
+.shortage-box {
+    border-color:#ffc7c7;
+    background:#fffafa;
+}
+
+.shortage-box h3 {
+    color:#ff1616;
+    margin-bottom:6px;
+}
+
+.side-fuel-box p {
+    color:#333;
+    font-size: 12px;
+    line-height:1.45;
+}
+
+.fuel-help-box {
+    margin-top:16px;
+    background:#f7f9ff;
+    border-color:#c9d7ff;
+}
+
+.fuel-help-box h3 {
+    color:#0649f5;
+    margin-bottom:6px;
+}
+
+.fuel-help-box a {
+    display:inline-block;
+    margin-top:12px;
+    padding:7px 10px;
+    border:1px solid #0649f5;
+    border-radius:4px;
+    color:#0649f5;
+    font-size:11px;
+    font-weight:600;
+}
+
+.dashboard-footer {
+    margin-top:18px;
+    min-height:58px;
+    padding:13px 20px;
+    border-radius:17px;
+    background:linear-gradient(135deg,#174cc5,#103b9d);
+    color:#fff;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:20px;
+    box-shadow:0 10px 25px rgba(15,61,186,.18);
+}
+
+.dashboard-footer div {
+    display:flex;
+    align-items:center;
+    gap:9px;
+    font-size:12px;
+}
+
+.dashboard-footer p {
+    font-size:12px;
+    opacity:.9;
+}
+
+@media (max-width:1250px) {
+    .fuel-main-card {
+        grid-template-columns:1fr;
+    }
+
+    .fuel-side-column {
+        display:grid;
+        grid-template-columns:repeat(3,1fr);
+        gap:14px;
+    }
+
+    .fuel-side-spacer {
+        display:none;
+    }
+
+    .fuel-help-box {
+        margin-top:0;
+    }
+
+    .station-card {
+        grid-template-columns:45px minmax(160px,1fr) 85px 70px;
+    }
+
+    .station-votes {
+        grid-column:2 / -1;
+    }
+
+    .station-votes form {
+        justify-content:flex-start;
+    }
+}
+
+@media (max-width:700px) {
+    .fuel-main-card {
+        padding:15px;
+    }
+
+    .fuel-search-fields {
+        grid-template-columns:1fr;
+    }
+
+    .station-card {
+        grid-template-columns:45px 1fr;
+    }
+
+    .station-status-block,
+    .station-updated,
+    .station-votes {
+        grid-column:2;
+    }
+
+    .fuel-side-column {
+        grid-template-columns:1fr;
+    }
+}

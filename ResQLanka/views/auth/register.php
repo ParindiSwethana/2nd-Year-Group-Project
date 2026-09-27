@@ -30,6 +30,7 @@ function registerSelected($field, $value, $old)
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/header_sidebar_navbar.css">
     <link rel="stylesheet" href="../../css/registerstyles.css">
 </head>
 
@@ -37,40 +38,9 @@ function registerSelected($field, $value, $old)
 
 <div class="background"></div>
 
-<div class="container">
-    <header>
+<?php include __DIR__ . "/../layouts/navbar.php"; ?>
 
-        <div class="logo-area">
-
-            <img src="../../images/logo.png" alt="logo">
-
-            <div>
-                <h1>ResQ Lanka</h1>
-                <p>Disaster &amp; Crisis Management System</p>
-            </div>
-
-        </div>
-        <div class="header-buttons">
-
-            <button type="button" class="fuel" onclick="window.location.href='../fuel/search.php'">
-            <i class="fa-solid fa-gas-pump"></i>
-                <div>
-                    <span>CHECK FUEL</span>
-                    <span>AVAILABILITY</span>
-                </div>
-            </button>
-
-            <button type="button" class="danger" onclick="window.location.href='../disaster/report_disaster.php'">
-                <i class="fa-solid fa-triangle-exclamation"></i>
-
-                <div>
-                    <span>INFORM ABOUT</span>
-                    <span>DISASTER!</span>
-                </div>
-            </button>
-        </div>
-
-    </header>
+<div class="register-container">
 
     <main>
 

@@ -215,9 +215,6 @@ include __DIR__ . "/../layouts/sidebar.php";
             </article>
         </section>
 
-        <!-- =================================================
-             FILTER BAR
-        ================================================== -->
         <section class="filter-bar disaster-filter-bar">
             <div class="filter-controls-left">
                 <div class="search-disaster">
@@ -269,6 +266,7 @@ include __DIR__ . "/../layouts/sidebar.php";
                 </form>
                 </div>
             </div>
+
             <div class="filter-controls-right">
                 <span class="sort-text">Sort: <strong>Newest</strong></span>
             </div>
@@ -326,7 +324,9 @@ include __DIR__ . "/../layouts/sidebar.php";
                         </div>
                         <h3>Need Help Urgently?</h3>
                     </div>
+
                     <p>If you are in danger or need immediate assistence, contact emergency services.</p>
+
                     <button type="button" class="emergency-btn">
                         <i class="fa-solid fa-phone"></i> Call Emergency Hotline
                     </button>
@@ -337,6 +337,7 @@ include __DIR__ . "/../layouts/sidebar.php";
                         <h3>Safety Tips</h3>
                         <a href="#" class="view-all">View All</a>
                     </div>
+
                     <ul class="tips-list">
                         <li>Stay away from flood water <i class="fa-solid fa-caret-right"></i></li>
                         <li>Monitor official updates <i class="fa-solid fa-caret-right"></i></li>
@@ -344,6 +345,7 @@ include __DIR__ . "/../layouts/sidebar.php";
                         <li>Follow evacuation orders <i class="fa-solid fa-caret-right"></i></li>
                         <li>Help vulnerable people <i class="fa-solid fa-caret-right"></i></li>
                     </ul>
+
                     <div class="stay-safe-alert">
                         <i class="fa-solid fa-circle-exclamation"></i>
                         <p>Stay informed. Stay prepareed.<br>Stay safe</p>

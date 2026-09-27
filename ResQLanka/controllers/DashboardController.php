@@ -1,30 +1,24 @@
 <?php
-
 require_once __DIR__ . "/../config/session.php";
 
 class DashboardController
 {
-    public function userDashboard()
+    public function userDashboard(): void
     {
-        if (!isset($_SESSION["user_id"])) {
+        requireRole("registered_user");
+        require __DIR__ . "/../views/dashboard/user_dashboard.php";
+    }
 
-            header(
-                "Location: ../views/auth/login.php"
-            );
+    public function districtDashboard(): void
+    {
+        requireRole("district_admin");
+        require __DIR__ . "/../views/dashboard/district_dashboard.php";
+    }
 
-            exit();
-        }
-
-        if ($_SESSION["role"] !== "registered_user") {
-
-            header(
-                "Location: ../views/auth/login.php"
-            );
-
-            exit();
-        }
-
-        require_once __DIR__ .
-            "/../views/dashboard/user_dashboard.php";
+    public function superDashboard(): void
+    {
+        requireRole("super_admin");
+        require __DIR__ . "/../views/dashboard/super_dashboard.php";
     }
 }
+?>
