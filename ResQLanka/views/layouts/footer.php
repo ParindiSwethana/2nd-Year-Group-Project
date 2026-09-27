@@ -1,20 +1,13 @@
-<footer class="dashboard-footer">
-
+<footer class="site-footer">
     <div>
-
         <i class="fa-solid fa-shield"></i>
-
-        <span>
-            Building safer communities through
-            preparedness, response and resilience.
-        </span>
-
+        Building safer communities through preparedness,
+        response and resilience.
     </div>
 
-    <p>
+    <div>
         © 2026 ResQ Lanka. All rights reserved.
-    </p>
-
+    </div>
 </footer>
 
 </body>
