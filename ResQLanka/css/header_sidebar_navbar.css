@@ -337,18 +337,20 @@ select {
     background:#d92c2c;
     border-color:#d92c2c;
 }
-
 .site-footer {
-    margin-top: 40px;
+    width: calc(100% - 90px);
+    margin: 5px auto 30px;
+    padding: 20px 30px;
+    box-sizing: border-box;
     background: #0f3dba;
     color: #fff;
     border-radius: 20px;
-    padding: 20px 30px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 14px;
     box-shadow: 0 10px 30px rgba(15, 61, 186, .25);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    font-size: 14px;
 }
 
 .site-footer div {
@@ -363,7 +365,11 @@ select {
 
 @media (max-width: 700px) {
     .site-footer {
+        width: calc(100% - 30px);
+        margin: 20px auto;
+        padding: 18px 20px;
         flex-direction: column;
+        justify-content: center;
         text-align: center;
         gap: 10px;
     }
