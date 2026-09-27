@@ -20,7 +20,7 @@ function escape($value)
 $assignmentId = filter_input(INPUT_GET, "assignment_id", FILTER_VALIDATE_INT);
 
 if (!$assignmentId) {
-    header("Location: disaster_detail.php");
+    header("Location: active_disasters.php");
     exit;
 }
 
@@ -72,7 +72,7 @@ try {
     $assignment = $stmt->fetch(PDO::FETCH_ASSOC);
 
     if (!$assignment) {
-        header("Location: disaster_detail.php");
+        header("Location: active_disasters.php");
         exit;
     }
 
@@ -218,7 +218,7 @@ try {
             <h2>Assignment Not Available</h2>
             <p><?= escape($pageError) ?></p>
 
-            <a href="disaster_detail.php" class="back-button">
+            <a href="active_disasters.php" class="back-button">
                 <i class="fa-solid fa-arrow-left"></i>
                 Back to Active Disasters
             </a>
@@ -227,7 +227,7 @@ try {
     <?php else: ?>
 
         <div class="breadcrumb">
-            <a href="disaster_detail.php">Active Disasters</a>
+            <a href="active_disasters.php">Active Disasters</a>
             <i class="fa-solid fa-chevron-right"></i>
             <span>Assignment Details</span>
         </div>
@@ -247,7 +247,7 @@ try {
                     </p>
                 </div>
 
-                <a href="disaster_details.php" class="back-button">
+                <a href="active_disasters.php" class="back-button">
                     <i class="fa-solid fa-arrow-left"></i>
                     Back to Active Disasters
                 </a>
