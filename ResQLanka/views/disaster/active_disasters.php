@@ -83,51 +83,36 @@ $conn = $db->connect();
 
 $selectedDistrict = $_GET['district'] ?? 'All';
 $selectedSeverity = $_GET['severity'] ?? 'All';
+$searchQuery = trim($_GET['search'] ?? '');
 
-if ($selectedDistrict !== 'All' && $selectedSeverity !== 'All' ) {
-    $disasterStmt = $conn->prepare("
-        SELECT a.*, d.title AS disaster_title, d.disaster_type, d.district
-        FROM volunteer_assignment a
-        JOIN disaster d ON a.disaster_id = d.disaster_id
-        WHERE d.district = ? AND a.severity = ? AND a.status = 'Ongoing'
-        ORDER BY a.created_at DESC
-    ");
-    $disasterStmt->execute([$selectedDistrict,$selectedSeverity]);
-} 
-else if ($selectedDistrict !== 'All' && $selectedSeverity === 'All'){
-   
-    $disasterStmt = $conn->prepare("
-        SELECT a.*, d.title AS disaster_title, d.disaster_type, d.district
-        FROM volunteer_assignment a
-        JOIN disaster d ON a.disaster_id = d.disaster_id
-        WHERE d.district = ? AND a.status = 'Ongoing'
-        ORDER BY a.created_at DESC
-    ");
-    $disasterStmt->execute([$selectedDistrict]);
-}
-else if ($selectedDistrict === 'All' && $selectedSeverity !== 'All'){
-   
-    $disasterStmt = $conn->prepare("
-        SELECT a.*, d.title AS disaster_title, d.disaster_type, d.district
-        FROM volunteer_assignment a
-        JOIN disaster d ON a.disaster_id = d.disaster_id
-        WHERE a.severity = ? AND a.status = 'Ongoing'
-        ORDER BY a.created_at DESC
-    ");
-    $disasterStmt->execute([$selectedSeverity]);
-}
-else {
-   
-    $disasterStmt = $conn->prepare("
-       SELECT a.*, d.title AS disaster_title, d.disaster_type, d.district
-        FROM volunteer_assignment a
-        JOIN disaster d ON a.disaster_id = d.disaster_id
-        WHERE a.status = 'Ongoing'
-        ORDER BY a.created_at DESC
-    ");
-    $disasterStmt->execute();
+$sql = "
+    SELECT a.*, d.title AS disaster_title, d.disaster_type, d.district
+    FROM volunteer_assignment a
+    JOIN disaster d ON a.disaster_id = d.disaster_id
+    WHERE a.status = 'Ongoing'
+";
+$params = [];
+
+if ($selectedDistrict !== 'All') {
+    $sql .= " AND d.district = ?";
+    $params[] = $selectedDistrict;
 }
 
+if ($selectedSeverity !== 'All') {
+    $sql .= " AND a.severity = ?";
+    $params[] = $selectedSeverity;
+}
+
+if ($searchQuery !== '') {
+    $sql .= " AND (d.title LIKE ? OR d.description LIKE ? OR a.title LIKE ?)";
+    $term = "%" . $searchQuery . "%";
+    array_push($params, $term, $term, $term);
+}
+
+$sql .= " ORDER BY a.created_at DESC";
+
+$disasterStmt = $conn->prepare($sql);
+$disasterStmt->execute($params);
 $disasters = $disasterStmt->fetchAll(PDO::FETCH_ASSOC);
 
 include __DIR__ . "/../layouts/header.php";
@@ -212,13 +197,14 @@ include __DIR__ . "/../layouts/sidebar.php";
         </section>
 
         <section class="filter-bar disaster-filter-bar">
+            <form method="GET" action="" style="margin: 0;">
             <div class="filter-controls-left">
                 <div class="search-disaster">
-                    <input type="text" placeholder="Search disasters">
+                    <input type="text" name="search" value="<?= escape($searchQuery ?? '') ?>" placeholder="Search disasters">
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </div>
                 <div class="tab-select">
-                    <form method="GET" action="" style="margin: 0;">
+                    
                         <select name="severity" onchange="this.form.submit()" class="custom-select">
                             <option value="All" <?= $selectedSeverity === 'All' ? 'selected' : '' ?>>All Severity</option>
                             <option value="Critical" <?= $selectedSeverity === 'Critical' ? 'selected' : '' ?>>Critical</option>
@@ -226,11 +212,11 @@ include __DIR__ . "/../layouts/sidebar.php";
                               <option value="Minor" <?= $selectedSeverity === 'Minor' ? 'selected' : '' ?>>Minor</option>
                         </select>
 
-                    </form>
+                    
                     
                 </div>
                 <div class="tab-select">
-                    <form method="GET" action="" style="margin: 0;">
+                    
                     <select name="district" onchange="this.form.submit()" class="custom-select">
                         <option value="All" <?= $selectedDistrict === 'All' ? 'selected' : '' ?>>All Districts</option>
                         <option value="Ampara" <?= $selectedDistrict === 'Ampara' ? 'selected' : '' ?>>Ampara</option>
@@ -259,10 +245,10 @@ include __DIR__ . "/../layouts/sidebar.php";
                         <option value="Trincomalee" <?= $selectedDistrict === 'Trincomalee' ? 'selected' : '' ?>>Trincomalee</option>
                         <option value="Vavuniya" <?= $selectedDistrict === 'Vavuniya' ? 'selected' : '' ?>>Vavuniya</option>
                     </select>
-                </form>
+                
                 </div>
             </div>
-
+            </form>
             <div class="filter-controls-right">
                 <span class="sort-text">Sort: <strong>Newest</strong></span>
             </div>
