@@ -7,9 +7,9 @@ require_once "../../config/database.php";
 $database = new Database();
 $conn = $database->connect();
 
-/*$createdBy = $_SESSION["user_id"] ?? null;
+$createdBy = $_SESSION["user_id"] ?? null;
 
-if (!$createdBy) {
+/*if (!$createdBy) {
     die("User session not found. Please log in again.");
 }*/
 
