@@ -1,74 +1,270 @@
 <?php
+
 require_once __DIR__ . "/../config/session.php";
 require_once __DIR__ . "/../models/FuelStation.php";
 
-function fuelRedirect(string $path, string $message = ""): void
+class FuelController
 {
-    $suffix = $message !== "" ? "?message=" . urlencode($message) : "";
-    header("Location: " . $path . $suffix);
-    exit();
-}
+    private FuelStation $fuelStation;
 
-$action = $_GET["action"] ?? $_POST["action"] ?? "";
-$model = new FuelStation();
-
-if ($action === "vote") {
-    requireRole("registered_user");
-    if ($_SERVER["REQUEST_METHOD"] !== "POST") {
-        fuelRedirect("../views/fuel/search.php");
+    public function __construct()
+    {
+        $this->fuelStation = new FuelStation();
     }
 
-    $stationId = (int) ($_POST["station_id"] ?? 0);
-    $vote = $_POST["vote"] ?? "";
-    if ($stationId < 1 || !in_array($vote, ["available", "out_of_stock"], true)) {
-        fuelRedirect("../views/fuel/search.php", "Invalid vote.");
+    public function searchStations(): array
+    {
+        $location = trim($_GET["location"] ?? "");
+        $type = trim($_GET["type"] ?? "");
+
+        return $this->fuelStation->search(
+            $location,
+            $type
+        );
     }
 
-    $model->vote($stationId, (int) $_SESSION["user_id"], $vote);
-    fuelRedirect("../views/fuel/search.php", "Thank you. Fuel availability has been updated.");
-}
+    public function getStationTypes(): array
+    {
+        return $this->fuelStation->getTypes();
+    }
 
-if (in_array($action, ["save", "delete"], true)) {
-    requireRole(["district_admin", "super_admin"]);
-    $role = $_SESSION["role"];
-    $adminDistrict = trim((string) ($_SESSION["district"] ?? ""));
+    public function submitVote(): void
+    {
+        requireRole("registered_user");
 
-    if ($action === "delete") {
+        if ($_SERVER["REQUEST_METHOD"] !== "POST") {
+            header("Location: ../views/fuel/search.php");
+            exit();
+        }
+
         $stationId = (int) ($_POST["station_id"] ?? 0);
-        $model->deactivate($stationId, $role === "district_admin" ? $adminDistrict : null);
-        fuelRedirect("../views/fuel/manage_stations.php", "Fuel station removed.");
-    }
+        $vote = trim($_POST["vote"] ?? "");
+        $userId = (int) ($_SESSION["user_id"] ?? 0);
 
-    $stationId = (int) ($_POST["station_id"] ?? 0);
-    $district = trim($_POST["district"] ?? "");
-    if ($role === "district_admin") {
-        $district = $adminDistrict;
-    }
+        if (
+            $stationId <= 0 ||
+            $userId <= 0 ||
+            !in_array($vote, ["available", "out_of_stock"], true)
+        ) {
+            header("Location: ../views/fuel/search.php?error=invalid_vote");
+            exit();
+        }
 
-    $data = [
-        "station_name" => trim($_POST["station_name"] ?? ""),
-        "station_type" => trim($_POST["station_type"] ?? ""),
-        "address" => trim($_POST["address"] ?? ""),
-        "city" => trim($_POST["city"] ?? ""),
-        "district" => $district,
-        "latitude" => ($_POST["latitude"] ?? "") !== "" ? (float) $_POST["latitude"] : null,
-        "longitude" => ($_POST["longitude"] ?? "") !== "" ? (float) $_POST["longitude"] : null,
-        "fuel_status" => in_array($_POST["fuel_status"] ?? "", ["available", "out_of_stock", "unknown"], true) ? $_POST["fuel_status"] : "unknown"
-    ];
+        $station = $this->fuelStation->find($stationId);
 
-    if ($data["station_name"] === "" || $data["station_type"] === "" || $data["address"] === "" || $data["district"] === "") {
-        fuelRedirect("../views/fuel/manage_stations.php", "Please complete all required station details.");
-    }
+        if (!$station) {
+            header("Location: ../views/fuel/search.php?error=station_not_found");
+            exit();
+        }
 
-    if ($stationId > 0 && $role === "district_admin") {
-        $existing = $model->find($stationId);
-        if (!$existing || $existing["district"] !== $adminDistrict) {
-            fuelRedirect("../views/fuel/manage_stations.php", "You can only manage stations in your district.");
+        try {
+            $this->fuelStation->vote(
+                $stationId,
+                $userId,
+                $vote
+            );
+
+            header(
+                "Location: ../views/fuel/search.php?updated=1#station-" .
+                $stationId
+            );
+            exit();
+        } catch (Throwable $e) {
+            header("Location: ../views/fuel/search.php?error=vote_failed");
+            exit();
         }
     }
 
-    $model->save($data, $stationId > 0 ? $stationId : null);
-    fuelRedirect("../views/fuel/manage_stations.php", $stationId > 0 ? "Fuel station updated." : "Fuel station added.");
+    public function getManageableStations(): array
+    {
+        requireRole([
+            "district_admin",
+            "super_admin"
+        ]);
+
+        $location = trim($_GET["location"] ?? "");
+        $type = trim($_GET["type"] ?? "");
+
+        if ($_SESSION["role"] === "district_admin") {
+            $district = $_SESSION["district"] ?? "";
+
+            return $this->fuelStation->search(
+                $location,
+                $type,
+                $district,
+                100
+            );
+        }
+
+        $district = trim($_GET["district"] ?? "");
+
+        return $this->fuelStation->search(
+            $location,
+            $type,
+            $district !== "" ? $district : null,
+            100
+        );
+    }
+
+    public function saveStation(): void
+    {
+        requireRole([
+            "district_admin",
+            "super_admin"
+        ]);
+
+        if ($_SERVER["REQUEST_METHOD"] !== "POST") {
+            header("Location: ../views/fuel/manage_stations.php");
+            exit();
+        }
+
+        $stationId = isset($_POST["station_id"])
+            ? (int) $_POST["station_id"]
+            : null;
+
+        $stationName = trim($_POST["station_name"] ?? "");
+        $stationType = trim($_POST["station_type"] ?? "");
+        $address = trim($_POST["address"] ?? "");
+        $city = trim($_POST["city"] ?? "");
+        $district = trim($_POST["district"] ?? "");
+        $latitude = trim($_POST["latitude"] ?? "");
+        $longitude = trim($_POST["longitude"] ?? "");
+        $fuelStatus = trim($_POST["fuel_status"] ?? "unknown");
+
+        if ($_SESSION["role"] === "district_admin") {
+            $district = $_SESSION["district"] ?? "";
+
+            if ($stationId) {
+                $existingStation = $this->fuelStation->find($stationId);
+
+                if (
+                    !$existingStation ||
+                    $existingStation["district"] !== $district
+                ) {
+                    header(
+                        "Location: ../views/fuel/manage_stations.php?error=unauthorized"
+                    );
+                    exit();
+                }
+            }
+        }
+
+        if (
+            $stationName === "" ||
+            $stationType === "" ||
+            $address === "" ||
+            $city === "" ||
+            $district === ""
+        ) {
+            header(
+                "Location: ../views/fuel/manage_stations.php?error=missing_fields"
+            );
+            exit();
+        }
+
+        if (
+            !in_array(
+                $fuelStatus,
+                ["available", "out_of_stock", "unknown"],
+                true
+            )
+        ) {
+            $fuelStatus = "unknown";
+        }
+
+        $data = [
+            "station_name" => $stationName,
+            "station_type" => $stationType,
+            "address" => $address,
+            "city" => $city,
+            "district" => $district,
+            "latitude" => $latitude !== "" ? $latitude : null,
+            "longitude" => $longitude !== "" ? $longitude : null,
+            "fuel_status" => $fuelStatus
+        ];
+
+        try {
+            $this->fuelStation->save(
+                $data,
+                $stationId ?: null
+            );
+
+            header(
+                "Location: ../views/fuel/manage_stations.php?saved=1"
+            );
+            exit();
+        } catch (Throwable $e) {
+            header(
+                "Location: ../views/fuel/manage_stations.php?error=save_failed"
+            );
+            exit();
+        }
+    }
+
+    public function deleteStation(): void
+    {
+        requireRole([
+            "district_admin",
+            "super_admin"
+        ]);
+
+        if ($_SERVER["REQUEST_METHOD"] !== "POST") {
+            header("Location: ../views/fuel/manage_stations.php");
+            exit();
+        }
+
+        $stationId = (int) ($_POST["station_id"] ?? 0);
+
+        if ($stationId <= 0) {
+            header(
+                "Location: ../views/fuel/manage_stations.php?error=invalid_station"
+            );
+            exit();
+        }
+
+        $district = null;
+
+        if ($_SESSION["role"] === "district_admin") {
+            $district = $_SESSION["district"] ?? "";
+        }
+
+        try {
+            $deleted = $this->fuelStation->deactivate(
+                $stationId,
+                $district
+            );
+
+            if (!$deleted) {
+                header(
+                    "Location: ../views/fuel/manage_stations.php?error=unauthorized"
+                );
+                exit();
+            }
+
+            header(
+                "Location: ../views/fuel/manage_stations.php?deleted=1"
+            );
+            exit();
+        } catch (Throwable $e) {
+            header(
+                "Location: ../views/fuel/manage_stations.php?error=delete_failed"
+            );
+            exit();
+        }
+    }
 }
 
-fuelRedirect("../views/fuel/search.php");
+$controller = new FuelController();
+$action = $_GET["action"] ?? "";
+
+if ($action === "vote") {
+    $controller->submitVote();
+}
+
+if ($action === "save") {
+    $controller->saveStation();
+}
+
+if ($action === "delete") {
+    $controller->deleteStation();
+}
