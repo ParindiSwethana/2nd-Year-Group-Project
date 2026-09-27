@@ -11,7 +11,7 @@
         </a>
 
         <a
-            href="../disaster/active_disasters.php"
+            href="../volunteer/assignments.php"
             class="nav-item <?= ($activePage ?? '') === 'disasters' ? 'active' : '' ?>"
         >
             <span class="nav-icon">

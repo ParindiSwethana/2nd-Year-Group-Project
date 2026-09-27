@@ -1,3 +1,4 @@
+/*DASHBOARD CONTENT*/
 .dashboard-content {
     min-width:0;
 }
@@ -617,7 +618,9 @@
     .dashboard-grid {
         grid-template-columns:1fr;
     }
+
 }
+
 
 @media(max-width:700px) {
     .welcome-content {

@@ -1,3 +1,4 @@
+
 .assignment-stats {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -71,7 +72,6 @@
 .stat-box-volunteers { border-bottom-color: #93c5fd; }
 .stat-box-volunteers .stat-icon { color: #3b82f6; background: #dbeafe; }
 .stat-info-volunteers span { color: #1d55df; }
-
 
 .filter-bar {
     min-height: 36px;

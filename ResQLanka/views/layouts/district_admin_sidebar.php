@@ -31,6 +31,16 @@
         </a>
 
         <a
+            href="../fuel/manage_stations.php"
+            class="nav-item <?= ($activePage ?? '') === 'fuel' ? 'active' : '' ?>"
+        >
+            <span class="nav-icon">
+                <i class="fa-solid fa-gas-pump"></i>
+            </span>
+            <span>Manage Fuel Stations</span>
+        </a>
+
+        <a
             href="../inventory/inventory_list.php"
             class="nav-item <?= ($activePage ?? '') === 'inventory' ? 'active' : '' ?>"
         >
@@ -38,6 +48,15 @@
                 <i class="fa-solid fa-clipboard-list"></i>
             </span>
             <span>Manage Inventory</span>
+        </a>
+        <a
+            href="../notices/manage_notices.php"
+            class="nav-item <?= ($activePage ?? '') === 'notices' ? 'active' : '' ?>"
+        >
+            <span class="nav-icon">
+                <i class="fa-solid fa-bullhorn"></i>
+            </span>
+            <span>Notices &amp; Alerts</span>
         </a>
     </nav>
 
