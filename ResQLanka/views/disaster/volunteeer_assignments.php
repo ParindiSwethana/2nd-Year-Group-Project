@@ -211,7 +211,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 ":volunteers_needed" => $volunteersNeeded,
                 ":volunteer_requirements" => $volunteerRequirements,
                 ":additional_info" => $additionalInfo,
-                /*":created_by" => $createdBy*/
+                ":created_by" => $createdBy
             ]);
 
             $successMessage =
