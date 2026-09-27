@@ -31,6 +31,16 @@
         </a>
 
         <a
+            href="../fuel/manage_stations.php"
+            class="nav-item <?= ($activePage ?? '') === 'fuel' ? 'active' : '' ?>"
+        >
+            <span class="nav-icon">
+                <i class="fa-solid fa-gas-pump"></i>
+            </span>
+            <span>Manage Fuel Stations</span>
+        </a>
+
+        <a
             href="../inventory/inventory_list.php"
             class="nav-item <?= ($activePage ?? '') === 'inventory' ? 'active' : '' ?>"
         >
