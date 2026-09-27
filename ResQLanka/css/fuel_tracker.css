@@ -361,7 +361,29 @@
 }
 
 .dashboard-footer {
-    margin-top:22px;
+    margin-top:18px;
+    min-height:58px;
+    padding:13px 20px;
+    border-radius:17px;
+    background:linear-gradient(135deg,#174cc5,#103b9d);
+    color:#fff;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:20px;
+    box-shadow:0 10px 25px rgba(15,61,186,.18);
+}
+
+.dashboard-footer div {
+    display:flex;
+    align-items:center;
+    gap:9px;
+    font-size:12px;
+}
+
+.dashboard-footer p {
+    font-size:12px;
+    opacity:.9;
 }
 
 @media (max-width:1250px) {
