@@ -47,13 +47,13 @@ include __DIR__ . "/../layouts/district_admin_sidebar.php";
 
         <div class="page-top-section">
             <div class="breadcrumb">
-                Manage Disasters &gt; <span>Create Assignment Request</span>
+                Manage Disasters &gt; <span>Create Disaster Event</span>
             </div>
             
             <div class="page-header-flex">
                 <div class="page-heading">
-                    <h2>Create Disaster Assignment Request</h2>
-                    <p>Enter the details needed to publish a volunteer assignment for this disaster</p>
+                    <h2>Create Disaster Event</h2>
+                    <p>Enter the details needed to publish a disaster</p>
                 </div>
                 <div class="admin-badge">
                     <i class="fa-solid fa-location-dot"></i> 
@@ -70,7 +70,7 @@ include __DIR__ . "/../layouts/district_admin_sidebar.php";
                     <div class="form-grid">
                         
                         <div class="form-group">
-                            <label><span class="label-num">1.</span> Assignment Title</label>
+                            <label><span class="label-num">1.</span> Disaster Title</label>
                             <input type="text" name="title" placeholder="Enter a clear title for this assignment" required>
                         </div>
 
@@ -120,7 +120,7 @@ include __DIR__ . "/../layouts/district_admin_sidebar.php";
                     </div>
                     
                     <div class="form-group mt-15 full-width">
-                        <label><span class="label-num">6.</span> Short Description / Assignment Summary</label>
+                        <label><span class="label-num">6.</span> Short Description / Disaster Summary</label>
                         <textarea name="description" placeholder="Provide a brief summary of the assignment, tasks and expected outcomes..." rows="3"></textarea>
                         <div class="char-count">0/500</div>
                     </div>
