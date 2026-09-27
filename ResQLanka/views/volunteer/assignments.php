@@ -9,7 +9,6 @@ $fullName = $_SESSION["name"] ?? "Volunteer";
 $tier = $_SESSION["tier"] ?? "Bronze";
 $points = $_SESSION["points"] ?? 0;
 
-$userId = $_SESSION["user_id"] ?? $_SESSION["id"] ?? null;
 
 function escape($value)
 {
@@ -20,10 +19,12 @@ function escape($value)
     );
 }
 
+
 require_once "../../config/database.php";
 
 $database = new Database();
 $conn = $database->connect();
+
 
 $applications = [];
 $totalApplications = 0;
@@ -33,129 +34,140 @@ $completedCount = 0;
 $totalHours = 0;
 
 
-if ($userId !== null) {
+try {
 
-    try {
+    
 
-        $sql = "
-            SELECT
-                va.assignment_id,
-                va.disaster_id,
-                va.title AS assignment_title,
-                va.assignment_category,
-                va.description AS assignment_description,
-                va.location AS assignment_location,
-                va.start_date,
-                va.end_date,
-                va.severity,
-                va.duration,
-                va.volunteers_needed,
-                va.volunteer_requirements,
-                va.additional_info,
-                va.status AS assignment_status,
+    $sql = "
 
-                app.application_id,
-                app.contact_number,
-                app.availability,
-                app.can_travel,
-                app.comfortable_with_fuel,
-                app.skills_experience,
-                app.additional_note,
-                app.agreed_to_terms,
-                app.status AS application_status,
-                app.applied_at,
+        SELECT
 
-                d.title AS disaster_title,
-                d.disaster_type,
-                d.description AS disaster_description,
-                d.location AS disaster_location,
-                d.priority AS disaster_priority,
-                d.status AS disaster_status
+            va.assignment_id,
+            va.disaster_id,
+            va.title AS assignment_title,
+            va.assignment_category,
+            va.description AS assignment_description,
+            va.location AS assignment_location,
+            va.start_date,
+            va.end_date,
+            va.severity,
+            va.duration,
+            va.volunteers_needed,
+            va.volunteer_requirements,
+            va.additional_info,
+            va.status AS assignment_status,
 
-            FROM VOLUNTEER_APPLICATION app
+            app.application_id,
+            app.user_id,
+            app.contact_number,
+            app.availability,
+            app.can_travel,
+            app.comfortable_with_fuel,
+            app.skills_experience,
+            app.additional_note,
+            app.agreed_to_terms,
+            app.status AS application_status,
+            app.applied_at,
 
-            INNER JOIN VOLUNTEER_ASSIGNMENT va
-                ON app.assignment_id = va.assignment_id
+            d.title AS disaster_title,
+            d.disaster_type,
+            d.description AS disaster_description,
+            d.location AS disaster_location,
+            d.priority AS disaster_priority,
+            d.status AS disaster_status
 
-            INNER JOIN DISASTER d
-                ON va.disaster_id = d.disaster_id
+        FROM VOLUNTEER_APPLICATION app
 
-            WHERE app.user_id = :user_id
+        INNER JOIN VOLUNTEER_ASSIGNMENT va
+            ON app.assignment_id = va.assignment_id
 
-            ORDER BY
-                CASE
-                    WHEN app.status = 'Pending' THEN 1
-                    WHEN app.status = 'Approved' THEN 2
-                    WHEN app.status = 'In Progress' THEN 3
-                    WHEN app.status = 'Completed' THEN 4
-                    WHEN app.status = 'Cancelled' THEN 5
-                    ELSE 6
-                END,
+        INNER JOIN DISASTER d
+            ON va.disaster_id = d.disaster_id
 
-                va.start_date ASC
-        ";
+        ORDER BY
 
-        $stmt = $conn->prepare($sql);
+            CASE
+                WHEN app.status = 'Pending' THEN 1
+                WHEN app.status = 'Approved' THEN 2
+                WHEN app.status = 'In Progress' THEN 3
+                WHEN app.status = 'Completed' THEN 4
+                WHEN app.status = 'Cancelled' THEN 5
+                ELSE 6
+            END,
 
-        $stmt->execute([
-            ":user_id" => $userId
-        ]);
+            va.start_date ASC
+    ";
 
-        $applications = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $stmt = $conn->prepare($sql);
+    $stmt->execute();
 
-        
-        $totalApplications = count($applications);
+    $applications = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-        foreach ($applications as $application) {
+    
+    $totalApplications = count($applications);
 
-            $status = strtolower(
-                trim($application["application_status"] ?? "")
-            );
+    foreach ($applications as $application) {
 
-            $assignmentStatus = strtolower(
-                trim($application["assignment_status"] ?? "")
-            );
+        $status = strtolower(
+            trim(
+                $application["application_status"] ?? ""
+            )
+        );
 
-
-            if (
-                $status === "pending" ||
-                $status === "approved"
-            ) {
-                $upcomingCount++;
-            }
+        $assignmentStatus = strtolower(
+            trim(
+                $application["assignment_status"] ?? ""
+            )
+        );
 
 
-            if (
-                $status === "in progress" ||
-                $assignmentStatus === "in progress"
-            ) {
-                $inProgressCount++;
-            }
 
-
-            if ($status === "completed") {
-                $completedCount++;
-            }
-
-
-            $duration = $application["duration"] ?? "";
-
-            if (
-                preg_match(
-                    '/(\d+(?:\.\d+)?)\s*(?:hours?|hrs?|h)/i',
-                    $duration,
-                    $matches
-                )
-            ) {
-                $totalHours += (float)$matches[1];
-            }
+        if (
+            $status === "pending" ||
+            $status === "approved"
+        ) {
+            $upcomingCount++;
         }
 
-    } catch (PDOException $e) {
 
-        $applications = [];
+        if (
+            $status === "in progress" ||
+            $assignmentStatus === "in progress"
+        ) {
+            $inProgressCount++;
+        }
 
+
+        
+        if ($status === "completed") {
+            $completedCount++;
+        }
+
+
+        
+        $duration = $application["duration"] ?? "";
+
+        if (
+            preg_match(
+                '/(\d+(?:\.\d+)?)\s*(?:hours?|hrs?|h)/i',
+                $duration,
+                $matches
+            )
+        ) {
+            $totalHours += (float)$matches[1];
+        }
     }
+
+} catch (PDOException $e) {
+
+    /*
+     * In development you can uncomment this
+     * to see the database error.
+     */
+
+    // die("Database Error: " . $e->getMessage());
+
+    $applications = [];
 }
 
 
@@ -180,15 +192,24 @@ $firstName = explode(
 
     <title>Volunteer Assignments | ResQ Lanka</title>
 
+
+    <!-- FONT AWESOME -->
+
     <link
         rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
     >
 
+
+    <!-- POPPINS -->
+
     <link
         href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet"
     >
+
+
+    <!-- PAGE CSS -->
 
     <link
         rel="stylesheet"
@@ -203,17 +224,27 @@ $firstName = explode(
 <div class="page-background"></div>
 
 
-<?php include "../layouts/header.php"; ?>
+<?php
 
-<?php include "../layouts/navbar.php"; ?>
+
+include "../layouts/header.php";
+
+include "../layouts/navbar.php";
+
+include "../layouts/sidebar.php";
+
+?>
+
 
 
 <div class="app-layout">
 
-    <?php include "../layouts/sidebar.php"; ?>
-
+    
 
     <main class="assignment-content">
+
+
+        <!-- PAGE HEADER -->
 
         <section class="page-heading">
 
@@ -236,8 +267,11 @@ $firstName = explode(
 
         </section>
 
-
+       
         <section class="stats-grid">
+
+
+            <!-- UPCOMING -->
 
             <article class="stat-card stat-blue">
 
@@ -264,6 +298,8 @@ $firstName = explode(
             </article>
 
 
+            <!-- IN PROGRESS -->
+
             <article class="stat-card stat-green">
 
                 <div class="stat-top">
@@ -289,6 +325,8 @@ $firstName = explode(
             </article>
 
 
+            <!-- COMPLETED -->
+
             <article class="stat-card stat-orange">
 
                 <div class="stat-top">
@@ -313,6 +351,8 @@ $firstName = explode(
 
             </article>
 
+
+            <!-- TOTAL -->
 
             <article class="stat-card stat-purple">
 
@@ -340,6 +380,7 @@ $firstName = explode(
 
         </section>
 
+        
 
         <section class="filter-bar">
 
@@ -389,15 +430,22 @@ $firstName = explode(
 
         </section>
 
+       
 
         <section class="assignment-list">
 
+
             <?php if (empty($applications)): ?>
+
+
+                <!-- NO APPLICATIONS -->
 
                 <div class="empty-state">
 
                     <div class="empty-icon">
+
                         <i class="fa-regular fa-file-lines"></i>
+
                     </div>
 
                     <h3>
@@ -413,11 +461,15 @@ $firstName = explode(
                         href="../disaster/disaster_details.php"
                         class="browse-button"
                     >
+
                         <i class="fa-solid fa-magnifying-glass"></i>
+
                         Browse Active Disasters
+
                     </a>
 
                 </div>
+
 
             <?php else: ?>
 
@@ -442,6 +494,8 @@ $firstName = explode(
                             )
                         );
 
+
+                    /* STATUS CLASS */
 
                     if (
                         $applicationStatus === "completed"
@@ -480,41 +534,53 @@ $firstName = explode(
                     }
 
 
+                    /* DATE */
+
                     $startDate = !empty(
                         $application["start_date"]
                     )
+
                         ? date(
                             "d M Y",
                             strtotime(
                                 $application["start_date"]
                             )
                         )
+
                         : "Not specified";
 
 
                     $endDate = !empty(
                         $application["end_date"]
                     )
+
                         ? date(
                             "d M Y",
                             strtotime(
                                 $application["end_date"]
                             )
                         )
+
                         : "Not specified";
 
+
+                    /* APPLICATION DATE */
 
                     $appliedDate = !empty(
                         $application["applied_at"]
                     )
+
                         ? date(
                             "d M Y",
                             strtotime(
                                 $application["applied_at"]
                             )
                         )
+
                         : "Not available";
 
+
+                    /* ICON */
 
                     $category =
                         strtolower(
@@ -557,10 +623,15 @@ $firstName = explode(
                     ?>
 
 
+                    <!-- ASSIGNMENT CARD -->
+
                     <article
                         class="assignment-card <?= escape($statusClass) ?>"
                         data-status="<?= escape($statusClass) ?>"
                     >
+
+
+                        <!-- ICON -->
 
                         <div class="assignment-icon">
 
@@ -569,7 +640,10 @@ $firstName = explode(
                         </div>
 
 
+                        <!-- MAIN INFORMATION -->
+
                         <div class="assignment-main">
+
 
                             <div class="assignment-title-row">
 
@@ -587,13 +661,16 @@ $firstName = explode(
 
 
                             <h3>
+
                                 <?= escape(
                                     $application["assignment_title"]
                                 ) ?>
+
                             </h3>
 
 
                             <div class="assignment-meta">
+
 
                                 <span>
 
@@ -655,10 +732,12 @@ $firstName = explode(
 
                                 <?php endif; ?>
 
+
                             </div>
 
 
                             <div class="assignment-extra">
+
 
                                 <span>
 
@@ -683,12 +762,17 @@ $firstName = explode(
 
                                 </span>
 
+
                             </div>
+
 
                         </div>
 
 
+                        <!-- RIGHT SIDE -->
+
                         <div class="assignment-right">
+
 
                             <div class="severity">
 
@@ -697,9 +781,11 @@ $firstName = explode(
                                 </span>
 
                                 <strong>
+
                                     <?= escape(
                                         $application["severity"]
                                     ) ?>
+
                                 </strong>
 
                             </div>
@@ -711,31 +797,41 @@ $firstName = explode(
                                 ) ?>"
                                 class="view-button"
                             >
+
                                 View Details
 
                                 <i class="fa-solid fa-chevron-right"></i>
 
                             </a>
 
+
                         </div>
+
 
                     </article>
 
 
                 <?php endforeach; ?>
 
+
             <?php endif; ?>
+
 
         </section>
 
+        
 
         <section class="community-strip">
+
 
             <div class="community-message">
 
                 <div class="community-main-icon">
+
                     <i class="fa-solid fa-shield-halved"></i>
+
                 </div>
+
 
                 <div>
 
@@ -753,6 +849,7 @@ $firstName = explode(
 
 
             <div class="community-actions">
+
 
                 <div class="community-item">
 
@@ -792,17 +889,27 @@ $firstName = explode(
 
                 </div>
 
+
             </div>
 
         </section>
 
 
-        <?php include "../layouts/footer.php"; ?>
-
-
     </main>
 
 </div>
+
+
+<?php
+
+/* =========================================
+   FOOTER
+========================================= */
+
+include "../layouts/footer.php";
+
+?>
+
 
 
 <script>
@@ -818,10 +925,17 @@ filterTabs.forEach(function(tab) {
 
     tab.addEventListener("click", function() {
 
+
+        /* Remove active */
+
         filterTabs.forEach(function(item) {
+
             item.classList.remove("active");
+
         });
 
+
+        /* Add active */
 
         tab.classList.add("active");
 
@@ -831,6 +945,7 @@ filterTabs.forEach(function(tab) {
 
 
         assignmentCards.forEach(function(card) {
+
 
             const status =
                 card.getAttribute("data-status");
@@ -859,4 +974,5 @@ filterTabs.forEach(function(tab) {
 
 
 </body>
+
 </html>
