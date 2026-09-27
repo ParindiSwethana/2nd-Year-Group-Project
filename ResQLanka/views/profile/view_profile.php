@@ -219,8 +219,8 @@ include __DIR__ . "/../layouts/navbar.php";
                                 <option value="Kegalle" <?= ($user['district'] ?? '') === 'Kegalle' ? 'selected' : '' ?>>Kegalle</option>
                             </select>
                             <?php endif; ?>
-                            <?php if (($_SESSION["role"] ?? "") === "district_admin"): ?>
-                                <input type="text" value="<?= escape($user['district'] ) ?>" placeholder="<?= escape($user['district'] ) ?>" readonly required>
+                           <?php if (($_SESSION["role"] ?? "") === "district_admin"): ?>
+                                <input type="text" name="district" value="<?= escape($_SESSION["district"] ?? '') ?>" readonly required>
                             <?php endif; ?>
 
                         </div>
