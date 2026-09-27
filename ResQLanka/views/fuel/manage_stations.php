@@ -129,7 +129,7 @@ include __DIR__ . "/../layouts/navbar.php";
                 <?php if (!$stations): ?><p class="empty-managed">No fuel stations found for this district.</p><?php endif; ?>
             </section>
         </section>
-
-        <?php include __DIR__ . "/../layouts/footer.php"; ?>
     </main>
 </div>
+
+<?php include __DIR__ . "/../layouts/footer.php"; ?>
