@@ -293,7 +293,10 @@ include __DIR__ . "/../layouts/district_admin_sidebar.php";
                             </td>
                             <td>
                                 <div class="action-buttons">
-                                    <button class="btn-outline-blue">View Details</button>
+                                    <a 
+                                    href="view_disaster.php?id=<?= escape($disaster['disaster_id'])?>"
+                                    class="btn-outline-blue"
+                                    >View Details</a>
                                     <form method="POST" style="display:inline;">
                                         <input type="hidden" name="action" value="mark_completed">
                                         <input type="hidden" name="disaster_id" value="<?= $disaster['disaster_id'] ?>">
@@ -372,7 +375,10 @@ include __DIR__ . "/../layouts/district_admin_sidebar.php";
                                 </span>
                             </td>
                             <td>
-                                <button class="btn-outline-blue">View Details</button>
+                                 <a 
+                                    href="view_disaster.php?id=<?= escape($disaster['disaster_id'])?>"
+                                    class="btn-outline-blue"
+                                    >View Details</a>
                                 <form method="POST" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this disaster? This action cannot be undone.');">
                                         <input type="hidden" name="action" value="delete_disaster">
                                         <input type="hidden" name="disaster_id" value="<?= $disaster['disaster_id'] ?>">
