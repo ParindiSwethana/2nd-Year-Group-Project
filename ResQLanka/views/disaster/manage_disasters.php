@@ -38,11 +38,11 @@ function getPriorityClass($priority)
 {
     switch(strtolower($priority ?? '')) {
         case 'high': 
-            return 'background-color: #fee2e2; color: #ef4444; border: 1px solid #fecaca;'; // Light red background & red text
+            return 'background-color: #fee2e2; color: #ef4444; border: 1px solid #fecaca;'; 
         case 'medium': 
-            return 'background-color: #fef3c7; color: #d97706; border: 1px solid #fde68a;'; // Light yellow/orange background & amber text
+            return 'background-color: #fef3c7; color: #d97706; border: 1px solid #fde68a;'; 
         case 'low': 
-            return 'background-color: #d1fae5; color: #059669; border: 1px solid #a7f3d0;'; // Light green background & green text
+            return 'background-color: #d1fae5; color: #059669; border: 1px solid #a7f3d0;'; 
         default: 
             return 'background-color: #f3f4f6; color: #4b5563;';
     }
@@ -178,7 +178,7 @@ include __DIR__ . "/../layouts/district_admin_sidebar.php";
             <i class="fa-solid fa-plus"></i> Create Disaster Event
             </a>
             <a 
-                href="volunteer_assignments.php"
+                href="volunteeer_assignments.php"
                 class="btn-primary"
             >
             <i class="fa-solid fa-plus"></i> Create Disaster Assignment Request
@@ -218,7 +218,7 @@ include __DIR__ . "/../layouts/district_admin_sidebar.php";
                     <h2><?= count($assignment) ?></h2>
                     <div class="card-text">
                         <strong>Volunteer Assignments</strong>
-                        <a href="../profile/view_profile.php"> View Assignments <i class="fa-solid fa-arrow-right"></i> </a>
+                        <a href="assignment_details.php"> View Assignments <i class="fa-solid fa-arrow-right"></i> </a>
                     </div>
                 </div>
             </div>
