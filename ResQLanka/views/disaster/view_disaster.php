@@ -4,6 +4,7 @@ $pageCSS = "../../css/view_disaster.css";
 $activePage = "disasters";
 
 require_once __DIR__ . "/../../config/session.php";
+requireRole("district_admin");
 require_once __DIR__ . "/../../config/database.php";
 
 $fullName = $_SESSION["name"] ?? "John";

@@ -6,6 +6,7 @@ $pageCSS = "../../css/active_disasters.css";
 $activePage = "disasters";
 
 require_once __DIR__ . "/../../config/session.php";
+requireRole("registered_user");
 require_once __DIR__ . "/../../config/database.php";
 
 $fullName = $_SESSION["name"] ?? "John";
