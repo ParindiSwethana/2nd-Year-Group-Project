@@ -1,5 +1,5 @@
 <?php
-
+$activePage = "disasters";
 session_start();
 
 require_once "../../config/database.php";
@@ -310,7 +310,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
             <i class="fa-solid fa-location-dot"></i>
 
-            GAMPAHA ADMIN
+            <?= escape($_SESSION['district']) ?> Admin
 
         </div>
 
