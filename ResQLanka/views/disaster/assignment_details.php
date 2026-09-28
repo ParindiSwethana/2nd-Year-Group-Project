@@ -231,7 +231,7 @@ try {
             <!-- CREATE ASSIGNMENT BUTTON -->
 
             <a
-                href="volunteer_assignments.php"
+                href="volunteeer_assignments.php"
                 class="create-button"
             >
 
