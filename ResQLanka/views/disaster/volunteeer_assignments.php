@@ -310,7 +310,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
             <i class="fa-solid fa-location-dot"></i>
 
-            <?= escape($_SESSION['district']) ?>
+            <?= escape($_SESSION['district']) ?> Admin
 
         </div>
 
