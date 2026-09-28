@@ -1,12 +1,15 @@
 <?php
 
 require_once __DIR__ . "/../config/session.php";
+require_once __DIR__ . "/../config/csrf.php";
 require_once __DIR__ . "/../models/User.php";
 
 if ($_SERVER["REQUEST_METHOD"] !== "POST") {
     header("Location: ../views/auth/register.php");
     exit();
 }
+
+verifyCsrfToken();
 
 $fullName = trim($_POST["full_name"] ?? "");
 $dateOfBirth = trim($_POST["date_of_birth"] ?? "");
