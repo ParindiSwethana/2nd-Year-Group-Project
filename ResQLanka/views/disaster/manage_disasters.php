@@ -56,15 +56,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
     $disasterId = $_POST['disaster_id'] ?? null;
     
     if ($disasterId) {
-        
         $stmtSelect = $conn->prepare("SELECT created_at FROM disaster WHERE disaster_id = ?");
         $stmtSelect->execute([$disasterId]);
         $disasterData = $stmtSelect->fetch(PDO::FETCH_ASSOC);
         
         if ($disasterData) {
-           
-            $start = new DateTime($disasterData['created_at']);
-            $end = new DateTime(); 
+            
+            $timezone = new DateTimeZone('Asia/Colombo');
+            
+            $start = new DateTime($disasterData['created_at'], $timezone);
+            $end = new DateTime('now', $timezone); 
+            $resolvedAtStr = $end->format('Y-m-d H:i:s'); 
             
             $interval = $start->diff($end);
 
@@ -74,9 +76,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
                     $durationStr .= ' ' . $interval->h . ' hr' . ($interval->h > 1 ? 's' : '');
                 }
             } else {
-                $hours = $interval->h;
-                if ($hours > 0) {
-                    $durationStr = $hours . ' hour' . ($hours > 1 ? 's' : '');
+                if ($interval->h > 0) {
+                    $durationStr = $interval->h . ' hr' . ($interval->h > 1 ? 's' : '');
+                    if ($interval->i > 0) {
+                        $durationStr .= ' ' . $interval->i . ' min' . ($interval->i > 1 ? 's' : ''); 
+                    }
                 } else {
                     $durationStr = max(1, $interval->i) . ' mins'; 
                 }
@@ -85,21 +89,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
             $stmtUpdate = $conn->prepare("
                 UPDATE disaster 
                 SET status = 'Completed', 
-                    resolved_at = CURRENT_TIMESTAMP, 
+                    resolved_at = ?, 
                     duration = ? 
                 WHERE disaster_id = ?
             ");
-            $stmtUpdate->execute([$durationStr, $disasterId]);
+            $stmtUpdate->execute([$resolvedAtStr, $durationStr, $disasterId]);
 
             $stmtUpdateAssignment = $conn->prepare("
                 UPDATE volunteer_assignment
                 SET status = 'Completed'
                 WHERE disaster_id = ?
             ");
-
-            $stmtUpdateAssignment->execute([
-                $disasterId
-            ]);
+            $stmtUpdateAssignment->execute([$disasterId]);
         }
         header("Location: " . $_SERVER['PHP_SELF']);
         exit();

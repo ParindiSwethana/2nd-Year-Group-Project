@@ -227,9 +227,6 @@ try {
 
             </div>
 
-
-            <!-- CREATE ASSIGNMENT BUTTON -->
-
             <a
                 href="volunteeer_assignments.php"
                 class="create-button"
