@@ -1,6 +1,7 @@
 <?php
 
 require_once __DIR__ . "/../../config/session.php";
+require_once __DIR__ . "/../../config/csrf.php";
 
 $registerErrors = $_SESSION["register_errors"] ?? [];
 $old = $_SESSION["register_old"] ?? [];
@@ -58,6 +59,8 @@ function registerSelected($field, $value, $old)
             <div class="divider"></div>
 
             <form id="registerForm" action="../../controllers/RegisterController.php" method="POST">
+
+                <input type="hidden" name="csrf_token" value="<?= htmlspecialchars(csrfToken(), ENT_QUOTES, "UTF-8") ?>">
 
                 <?php if (!empty($registerErrors)): ?>
 
@@ -147,7 +150,7 @@ function registerSelected($field, $value, $old)
                         <div class="input-box">
 
                             <i class="fa-solid fa-phone"></i>
-                            <input type="tel" id="phone" name="phone" placeholder="+94 77 1234567" value="<?= oldRegisterValue("phone", $old) ?>" maxlength="20" required>
+                            <input type="tel" id="phone" name="phone" placeholder="+94 77 1234567" value="<?= oldRegisterValue("phone", $old) ?>" maxlength="10" required>
 
                         </div>
 
@@ -359,7 +362,7 @@ function registerSelected($field, $value, $old)
                         <div class="input-box">
 
                             <i class="fa-solid fa-user-shield"></i>
-                            <input type="text" id="emergency_contact_name" name="emergency_contact_name" placeholder="Emergency Contact" value="<?= oldRegisterValue("emergency_contact_name", $old) ?>" maxlength="100" required>
+                            <input type="text" id="emergency_contact_name" name="emergency_contact_name" placeholder="Emergency Contact" value="<?= oldRegisterValue("emergency_contact_name", $old) ?>" maxlength="10" required>
 
                         </div>
 
@@ -374,7 +377,7 @@ function registerSelected($field, $value, $old)
                         <div class="input-box">
 
                             <i class="fa-solid fa-phone-volume"></i>
-                            <input type="tel" id="emergency_contact_phone" name="emergency_contact_phone" placeholder="+94 71 1234567" value="<?= oldRegisterValue("emergency_contact_phone", $old) ?>" maxlength="20" required>
+                            <input type="tel" id="emergency_contact_phone" name="emergency_contact_phone" placeholder="+94 71 1234567" value="<?= oldRegisterValue("emergency_contact_phone", $old) ?>" maxlength=10" required>
 
                         </div>
                     </div>

@@ -8,6 +8,12 @@ require_once __DIR__ . "/../../config/session.php";
 requireRole("district_admin");
 require_once __DIR__ . "/../../config/database.php";
 
+requireRole(["district_admin", "super_admin"]);
+
+$role = $_SESSION["role"] ?? null;
+$isSuperAdmin = $role === "super_admin";
+$adminDistrict = $_SESSION["district"] ?? null;
+
 $fullName = $_SESSION["name"] ?? "John";
 $tier = $_SESSION["tier"] ?? "Bronze";
 $points = $_SESSION["points"] ?? 0;
@@ -86,6 +92,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
                 }
             }
             
+<<<<<<< HEAD
             $stmtUpdate = $conn->prepare("
                 UPDATE disaster 
                 SET status = 'Completed', 
@@ -101,6 +108,36 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
                 WHERE disaster_id = ?
             ");
             $stmtUpdateAssignment->execute([$disasterId]);
+=======
+            if ($isSuperAdmin) {
+                $stmtUpdate = $conn->prepare("
+                    UPDATE disaster
+                    SET status = 'Completed',
+                        resolved_at = CURRENT_TIMESTAMP,
+                        duration = ?
+                    WHERE disaster_id = ?
+                ");
+                $stmtUpdate->execute([$durationStr, $disasterId]);
+            } else {
+                $stmtUpdate = $conn->prepare("
+                    UPDATE disaster
+                    SET status = 'Completed',
+                        resolved_at = CURRENT_TIMESTAMP,
+                        duration = ?
+                    WHERE disaster_id = ? AND district = ?
+                ");
+                $stmtUpdate->execute([$durationStr, $disasterId, $adminDistrict]);
+            }
+
+            if ($stmtUpdate->rowCount() > 0) {
+                $stmtUpdateAssignment = $conn->prepare("
+                    UPDATE volunteer_assignment
+                    SET status = 'Completed'
+                    WHERE disaster_id = ?
+                ");
+                $stmtUpdateAssignment->execute([$disasterId]);
+            }
+>>>>>>> 35952e7fe048a357b0736ce380d10db8731f8528
         }
         header("Location: " . $_SERVER['PHP_SELF']);
         exit();
@@ -111,43 +148,72 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
     $disasterId = $_POST['disaster_id'] ?? null;
     
     if ($disasterId) {
-        $stmtDelete = $conn->prepare("DELETE FROM disaster WHERE disaster_id = ?");
-        $stmtDelete->execute([$disasterId]);
+        if ($isSuperAdmin) {
+            $stmtDelete = $conn->prepare("DELETE FROM disaster WHERE disaster_id = ?");
+            $stmtDelete->execute([$disasterId]);
+        } else {
+            $stmtDelete = $conn->prepare("DELETE FROM disaster WHERE disaster_id = ? AND district = ?");
+            $stmtDelete->execute([$disasterId, $adminDistrict]);
+        }
         
         header("Location: " . $_SERVER['PHP_SELF']);
         exit();
     }
 }
 
-$adminDistrict=$_SESSION['district'] ?? 'Colombo';
+if ($isSuperAdmin) {
+    $ongoingStmt = $conn->query("
+        SELECT *
+        FROM disaster
+        WHERE status = 'Ongoing'
+        ORDER BY created_at DESC
+    ");
+    $ongoingDisasters = $ongoingStmt->fetchAll(PDO::FETCH_ASSOC);
 
-$ongoingStmt = $conn->prepare("
-    SELECT *
-    FROM disaster 
-    WHERE status = 'Ongoing' AND district = ? 
-    ORDER BY created_at DESC
-");
-$ongoingStmt->execute([$adminDistrict]);
-$ongoingDisasters = $ongoingStmt->fetchAll(PDO::FETCH_ASSOC);
+    $completedStmt = $conn->query("
+        SELECT *
+        FROM disaster
+        WHERE status = 'Completed'
+        ORDER BY created_at DESC
+    ");
+    $completedDisasters = $completedStmt->fetchAll(PDO::FETCH_ASSOC);
 
-$completedStmt = $conn->prepare("
-    SELECT *
-    FROM disaster 
-    WHERE status = 'Completed' AND district = ? 
-    ORDER BY created_at DESC
-");
-$completedStmt->execute([$adminDistrict]);
-$completedDisasters = $completedStmt->fetchAll(PDO::FETCH_ASSOC);
+    $assignmentStmt = $conn->query("
+        SELECT a.*, d.title AS disaster_title, d.disaster_type, d.district
+        FROM volunteer_assignment a
+        JOIN disaster d ON a.disaster_id = d.disaster_id
+        ORDER BY a.created_at DESC
+    ");
+    $assignment = $assignmentStmt->fetchAll(PDO::FETCH_ASSOC);
+} else {
+    $ongoingStmt = $conn->prepare("
+        SELECT *
+        FROM disaster
+        WHERE status = 'Ongoing' AND district = ?
+        ORDER BY created_at DESC
+    ");
+    $ongoingStmt->execute([$adminDistrict]);
+    $ongoingDisasters = $ongoingStmt->fetchAll(PDO::FETCH_ASSOC);
 
-$assignmentStmt = $conn->prepare("
-    SELECT a.*, d.title AS disaster_title, d.disaster_type, d.district
-    FROM volunteer_assignment a
-    JOIN disaster d ON a.disaster_id = d.disaster_id
-    WHERE d.district = ? 
-    ORDER BY a.created_at DESC
-");
-$assignmentStmt->execute([$adminDistrict]);
-$assignment = $assignmentStmt->fetchAll(PDO::FETCH_ASSOC);
+    $completedStmt = $conn->prepare("
+        SELECT *
+        FROM disaster
+        WHERE status = 'Completed' AND district = ?
+        ORDER BY created_at DESC
+    ");
+    $completedStmt->execute([$adminDistrict]);
+    $completedDisasters = $completedStmt->fetchAll(PDO::FETCH_ASSOC);
+
+    $assignmentStmt = $conn->prepare("
+        SELECT a.*, d.title AS disaster_title, d.disaster_type, d.district
+        FROM volunteer_assignment a
+        JOIN disaster d ON a.disaster_id = d.disaster_id
+        WHERE d.district = ?
+        ORDER BY a.created_at DESC
+    ");
+    $assignmentStmt->execute([$adminDistrict]);
+    $assignment = $assignmentStmt->fetchAll(PDO::FETCH_ASSOC);
+}
 
 
 include __DIR__ . "/../layouts/header.php";
@@ -158,7 +224,11 @@ include __DIR__ . "/../layouts/navbar.php";
 <div class="app-layout">
 
 <?php
-include __DIR__ . "/../layouts/district_admin_sidebar.php";
+if ($isSuperAdmin) {
+    include __DIR__ . "/../layouts/super_admin_sidebar.php";
+} else {
+    include __DIR__ . "/../layouts/district_admin_sidebar.php";
+}
 ?>
 
     <main class="assignments-content">
@@ -229,7 +299,11 @@ include __DIR__ . "/../layouts/district_admin_sidebar.php";
                 <a href="#" class="tab active" data-tab="all">All</a>
             </div>
             <div class="tab-filter">
-                <span><?= escape($adminDistrict) ?> District Only <i class="fa-solid fa-lock"></i></span>
+                <?php if ($isSuperAdmin): ?>
+                    <span>All Districts <i class="fa-solid fa-earth-asia"></i></span>
+                <?php else: ?>
+                    <span><?= escape($adminDistrict) ?> District Only <i class="fa-solid fa-lock"></i></span>
+                <?php endif; ?>
             </div>
         </div>
 

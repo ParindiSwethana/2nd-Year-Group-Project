@@ -1,12 +1,15 @@
 <?php
 
 require_once __DIR__ . "/../config/session.php";
+require_once __DIR__ . "/../config/csrf.php";
 require_once __DIR__ . "/../models/User.php";
 
 if ($_SERVER["REQUEST_METHOD"] !== "POST") {
     header("Location: ../views/auth/register.php");
     exit();
 }
+
+verifyCsrfToken();
 
 $fullName = trim($_POST["full_name"] ?? "");
 $dateOfBirth = trim($_POST["date_of_birth"] ?? "");
@@ -49,7 +52,7 @@ if ($email === "") {
 
 if ($phone === "") {
     $errors[] = "Contact number is required.";
-} elseif (!preg_match("/^[0-9+\-\s]{9,20}$/", $phone)) {
+} elseif (!preg_match("/^[0-9+\-\s]{9,10}$/", $phone)) {
     $errors[] = "Enter a valid contact number.";
 }
 
@@ -89,7 +92,7 @@ if ($emergencyContactName === "") {
 if ($emergencyContactPhone === "") {
     $errors[] = "Emergency contact number is required.";
 } elseif (!preg_match(
-    "/^[0-9+\-\s]{9,20}$/",
+    "/^[0-9+\-\s]{9,10}$/",
     $emergencyContactPhone
 )) {
     $errors[] = "Enter a valid emergency contact number.";
