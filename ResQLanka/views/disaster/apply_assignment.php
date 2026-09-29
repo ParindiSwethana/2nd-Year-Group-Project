@@ -124,10 +124,6 @@ try {
 
         if (empty($errors)) {
 
-            /*
-             * user_id is taken from the login session when available.
-             * It is allowed to be NULL by your table design.
-             */
             $insertSql = "
                 INSERT INTO VOLUNTEER_APPLICATION
                 (
