@@ -1,79 +1,50 @@
-
 .main-content {
     flex: 1;
-
     margin-left: 12px;
-
     background: white;
-
     border-radius: 8px;
-
     padding: 18px 18px 25px;
-
-    box-shadow:
-        0 1px 5px rgba(0, 0, 0, 0.16);
-
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.16);
     overflow: hidden;
 }
 
-
-
 .page-heading {
     display: flex;
-
     align-items: center;
     justify-content: space-between;
-
     margin-bottom: 15px;
-
     padding: 0 4px;
 }
 
-
 .breadcrumb {
     display: flex;
-
     align-items: center;
-
     gap: 9px;
-
     color: #777;
-
     font-size: 11px;
-
     margin-bottom: 5px;
 }
 
-
 .breadcrumb i {
     font-size: 9px;
-
     color: #8a8a8a;
 }
-
 
 .breadcrumb strong {
     color: #777;
 }
 
-
 .page-heading h2 {
     font-size: 25px;
-
     line-height: 1.15;
-
     color: #111;
-
     margin-bottom: 4px;
 }
 
-
 .page-heading p {
     font-size: 11px;
-
     color: #666;
 }
-
 
 .create-button {
     display: inline-flex;
